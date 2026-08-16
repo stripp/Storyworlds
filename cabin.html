@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <title>Story Worlds - Cabin Scene</title>
+
+    <!-- A‑Frame Core -->
+    <script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
+
+    <!-- Extras: nav-mesh + teleport -->
+   <script src="javascript/aframe-extras.min.js"></script>
+
+    <!-- Environment component -->
+
+   <script src="javascript/aframe-environment-component.min.js"></script>
+
+  </head>
+
+  <body>
+
+<a-scene overlay-visibility="" class="fullscreen" inspector="" keyboard-shortcuts="" screenshot="" vr-mode-ui="vr">
+<canvas class="a-canvas" data-aframe-canvas="true" width="450" height="225"></canvas>
+
+      <!-- ASSETS -->
+      <a-assets>
+        <img id="forest" src="images/HDR_forest.png">
+	<a-asset-item id="navigation" src="https://sof-webxr-assets.s3.us-east-2.amazonaws.com/meshes/NavMesh.glb" crossorigin="anonymous"></a-asset-item> 
+	<a-asset-item id="cabin" src="https://sof-webxr-assets.s3.us-east-2.amazonaws.com/meshes/CabinScene1.glb" crossorigin="anonymous"></a-asset-item>
+      </a-assets>
+
+      <!-- CAMERA RIG -->
+      <a-entity id="rig" movement-controls="constrainToNavMesh: true; controls: checkpoint, gamepad, trackpad, keyboard, nipple;" position="10 0 6" rotation="0 40 0" checkpoint-controls gamepad-controls trackpad-controls keyboard-controls nipple-controls>
+        <a-entity id="head"
+                  camera
+                  look-controls="pointerLockEnabled: true" 
+		  position="1 1.6 -1"
+		  rotation>
+        <a-cursor material raycaster cursor geometry position></a-cursor>
+        </a-entity>
+      </a-entity>
+
+      <a-entity environment="active:true;skyType:none;lightPosition:-0.11 1 0.33;fog:none;ground:flat; groundTexture:none;groundColor:none;dressingScale:1;dressingVariance:0 0 0" preset-switcher="" id="environment">
+</a-entity>
+</a-entity>
+
+      <!-- SCENE OBJECTS -->
+      <!-- Background dome -->
+      <a-sphere id="background"
+                position="0 0 0"
+                rotation="0 0 0"
+                radius="15"
+                src="#forest"
+                material="side: back; shader: flat"
+		metadata="unlit"
+                shadow="receive: false; cast: false"
+		visible>
+      </a-sphere>
+      <!-- Nav Mesh -->
+      <a-entity nav-mesh 
+	       id="nav"
+               normal-material
+               position="0 0.01 0"
+	       gltf-model="#navigation"
+   	       visible="false">
+      </a-entity>
+
+      <!-- LIGHTING -->
+      <a-entity id="amb" light="type: ambient; intensity: 5" position="0 3 0" visible></a-entity>
+      <a-entity gltf-model="#cabin" id="mainScene" position="0 0.01 0"></a-entity>
+
+    </a-scene>
