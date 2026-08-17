@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=no,maximum-scale=1">
+    <title>Story Worlds - Easy Template</title>
+
+    <!-- A‑Frame Core -->
+    <script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
+
+    <!-- Extras: nav-mesh + teleport -->
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.7.0/dist/aframe-extras.min.js"></script>
+
+    <!-- Environment component -->
+    <script src="https://unpkg.com/aframe-environment-component@1.5.x/dist/aframe-environment-component.min.js"></script>
+
+  </head>
+
+  <body>
+
+     <a-scene overlay-visibility="" class="fullscreen" inspector="url:https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js" keyboard-shortcuts="" screenshot="" vr-mode-ui="vr">
+     <canvas class="a-canvas" data-aframe-canvas="true" width="450" height="225"></canvas>
+
+      <!-- ASSETS (list of images and meshes you will include in the scene so they can be pre-loaded) -->
+      <a-assets>
+
+	<a-asset-item id="navigation" src="https://sof-webxr-assets.s3.us-east-2.amazonaws.com/meshes/NavMesh.glb" crossorigin="anonymous"></a-asset-item> 
+	<a-asset-item id="cabin" src="https://sof-webxr-assets.s3.us-east-2.amazonaws.com/meshes/CabinScene1.glb" crossorigin="anonymous"></a-asset-item>
+      </a-assets>
+
+      <!-- VR PLAYER (a combination of a camera--eyes, and a rig--body that allows the users to move through and interact with a scene) -->
+
+      <a-entity id="rig" movement-controls="constrainToNavMesh: true; controls: checkpoint, gamepad, trackpad, keyboard, nipple;" position="10 0 6" rotation="0 40 0" checkpoint-controls gamepad-controls trackpad-controls keyboard-controls nipple-controls>
+        <a-entity id="head"
+                  camera
+                  look-controls="pointerLockEnabled: true" 
+		  position="1 1.6 -1"
+		  rotation>
+          <a-cursor material raycaster="objects: [data-raycastable]" cursor geometry position></a-cursor>
+        </a-entity>
+      </a-entity>
+
+<a-cube color="orange" size="1 1 1" position="4 0 1" rotation="0 20 0"></a-cube>
+
+  </scene>
+</body>
+</html>
