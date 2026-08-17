@@ -17,7 +17,7 @@
 
   <body>
 
-     <a-scene overlay-visibility="" class="fullscreen" inspector="url:https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js" keyboard-shortcuts="" screenshot="" vr-mode-ui="vr">
+     <a-scene overlay-visibility="" class="fullscreen" inspector="" keyboard-shortcuts="" screenshot="" vr-mode-ui="vr">
      <canvas class="a-canvas" data-aframe-canvas="true" width="450" height="225"></canvas>
 
       <!-- ASSETS (list of images and meshes you will include in the scene so they can be pre-loaded) -->
@@ -38,6 +38,11 @@
           <a-cursor material raycaster="objects: [data-raycastable]" cursor geometry position></a-cursor>
         </a-entity>
       </a-entity>
+
+     <!-- ENVIRONMENT (set the sky, ground, and other features) -->
+
+<a-entity environment="active:true;" preset-switcher="" id="environment">
+</a-entity>
 
 <a-cube color="orange" size="1 1 1" position="4 0 1" rotation="0 20 0"></a-cube>
 
