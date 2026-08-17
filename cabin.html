@@ -1,6 +1,8 @@
 <html>
   <head>
-    <title>Story Worlds - Cabin Scene</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=no,maximum-scale=1">
+	<title>Story Worlds - Cabin Scene</title>
 
     <!-- A‑Frame Core -->
     <script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
@@ -26,7 +28,7 @@
 	<a-asset-item id="cabin" src="https://sof-webxr-assets.s3.us-east-2.amazonaws.com/meshes/CabinScene1.glb" crossorigin="anonymous"></a-asset-item>
       </a-assets>
 
-      <!-- CAMERA RIG -->
+      <!-- PLAYER -->
       <a-entity id="rig" movement-controls="constrainToNavMesh: true; controls: checkpoint, gamepad, trackpad, keyboard, nipple;" position="10 0 6" rotation="0 40 0" checkpoint-controls gamepad-controls trackpad-controls keyboard-controls nipple-controls>
         <a-entity id="head"
                   camera
@@ -36,10 +38,11 @@
         <a-cursor material raycaster="objects: [data-raycastable]" cursor geometry position></a-cursor>
         </a-entity>
       </a-entity>
+</a-entity>
 
       <a-entity environment="active:true; lighting:none; fog:none; ground:flat;" preset-switcher="" id="environment">
 </a-entity>
-</a-entity>
+
 
       <!-- SCENE OBJECTS -->
       <!-- Background dome -->
@@ -62,8 +65,11 @@
    	       visible="false">
       </a-entity>
 
+      <!-- Cabin environment model -->
+      <a-entity gltf-model="#cabin" id="mainScene" position="0 0.01 0"></a-entity>
+
+
       <!-- LIGHTING -->
       <a-entity id="amb" light="type: ambient; intensity: 5" position="0 3 0" visible></a-entity>
-      <a-entity gltf-model="#cabin" id="mainScene" position="0 0.01 0"></a-entity>
 
     </a-scene>
