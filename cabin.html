@@ -18,7 +18,7 @@
 
   <body>
 
-<a-scene overlay-visibility="" class="fullscreen" inspector="" keyboard-shortcuts="" screenshot="" vr-mode-ui="vr">
+<a-scene overlay-visibility="" class="fullscreen" inspector="url:https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js" keyboard-shortcuts="" screenshot="" vr-mode-ui="vr">
 <canvas class="a-canvas" data-aframe-canvas="true" width="450" height="225"></canvas>
 
       <!-- ASSETS -->
@@ -35,10 +35,9 @@
                   look-controls="pointerLockEnabled: true" 
 		  position="1 1.6 -1"
 		  rotation>
-        <a-cursor material raycaster="objects: [data-raycastable]" cursor geometry position></a-cursor>
+          <a-cursor material raycaster="objects: [data-raycastable]" cursor geometry position></a-cursor>
         </a-entity>
       </a-entity>
-</a-entity>
 
       <a-entity environment="active:false;" preset-switcher="" id="environment">
 </a-entity>
@@ -56,6 +55,7 @@
                 shadow="receive: false; cast: false"
 		visible>
       </a-sphere>
+
       <!-- Nav Mesh -->
       <a-entity nav-mesh 
 	       id="nav"
