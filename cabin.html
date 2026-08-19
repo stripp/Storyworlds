@@ -87,14 +87,6 @@
       <a-entity environment="active:false;" preset-switcher="" id="environment">
 </a-entity>
 
-<a-entity id="startAudioButton"
-          geometry="primitive: plane; height: 0.35; width: 0.9"
-          material="color: #333; opacity: 0.85"
-          text="value: Start Audio; align: center; color: #FFF"
-          position="0 1.6 -2"
-          visible="false">
-</a-entity>
-
       <!-- SCENE OBJECTS -->
       <!-- Background dome -->
       <a-sphere id="background"
@@ -124,6 +116,16 @@
       <!-- LIGHTING -->
       <a-entity id="amb" light="type: ambient; intensity: 10" position="0 3 0" visible></a-entity>
 
+<a-entity id="startAudioButton"
+          geometry="primitive: plane; height: 0.35; width: 0.9"
+          material="color: #333; opacity: 0.85"
+          text="value: Start Audio; align: center; color: #FFF"
+          position="0 1.6 -2"
+          visible="false">
+</a-entity>
+
     </a-scene>
+
+<script src="javascript/soundOnLoad.js"></script>
 </body>
 </html>
