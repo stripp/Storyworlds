@@ -25,6 +25,7 @@
         <img id="forest" src="images/HDR_forest.png">
 	<a-asset-item id="navigation" src="https://sof-webxr-assets.s3.us-east-2.amazonaws.com/meshes/NavMesh.glb" crossorigin="anonymous"></a-asset-item> 
 	<a-asset-item id="cabin" src="https://sof-webxr-assets.s3.us-east-2.amazonaws.com/meshes/CabinScene1.glb" crossorigin="anonymous"></a-asset-item>
+        <a-asset-item id="woodsAmbient" src="https://sof-webxr-assets.s3.us-east-2.amazonaws.com/newWoodsMixdown.mp3" crossorigin="anonymous"></a-assset-item>
       </a-assets>
 
       <!-- PLAYER -->
@@ -63,6 +64,8 @@
    	       visible="false">
       </a-entity>
 
+      <a-entity sound="src: #woodsAmbient; preload: auto"></a-entity>
+
       <!-- Cabin environment model -->
       <a-entity gltf-model="#cabin" id="mainScene" position="0 0.01 0"></a-entity>
 
@@ -70,16 +73,8 @@
       <!-- LIGHTING -->
       <a-entity id="amb" light="type: ambient; intensity: 10" position="0 3 0" visible></a-entity>
 
-<a-entity id="startAudioButton"
-          geometry="primitive: plane; height: 0.35; width: 0.9"
-          material="color: #333; opacity: 0.85"
-          text="value: Start Audio; align: center; color: #FFF"
-          position="0 1.6 -2"
-          visible="false">
-</a-entity>
 
     </a-scene>
 
-<script src="javascript/soundOnLoad.js"></script>
 </body>
 </html>
