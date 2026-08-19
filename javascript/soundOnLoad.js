@@ -10,7 +10,7 @@
         if (!startButton) return;
 
         const audio = new Audio();
-        audio.src = "https://sof-webxr-assets.s3.us-east-2.amazonaws.com/new_woods_mixdown.mp3";
+        audio.src = "audio/new_woods_mixdown.mp3";
         audio.crossOrigin = "anonymous";
         audio.loop = true;
         audio.load();
