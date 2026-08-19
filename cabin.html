@@ -14,51 +14,6 @@
 
    <script src="javascript/aframe-environment-component.min.js"></script>
 
-<script>
-  function isIOS() {
-    const ua = navigator.userAgent;
-    const iOS = /iPhone|iPad|iPod/.test(ua);
-    const iPadOS = navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
-    return iOS || iPadOS;
-  }
-</script>
-
- <script>
-  // Create and preload audio
-  const audio = new Audio();
-  audio.src = "https://sof-webxr-assets.s3.us-east-2.amazonaws.com/new_woods_mixdown.mp3";
-  audio.crossOrigin = "anonymous";
-  audio.loop = true;
-  audio.load();
-
-  const startButton = document.getElementById('startAudioButton');
-
-  // Try autoplay immediately (works on Edge/Chrome/Android)
-  audio.play().catch(() => {
-    // If autoplay fails AND we're on iOS → show the VR button
-    if (isIOS()) {
-      startButton.setAttribute('visible', true);
-    }
-  });
-
-  // VR button click → guaranteed gesture for iOS
-  startButton.addEventListener('click', () => {
-    audio.play().then(() => {
-      startButton.setAttribute('visible', false);
-    });
-  });
-
-  // Optional hover highlight
-  startButton.addEventListener('mouseenter', () => {
-    startButton.setAttribute('material', 'color: #555; opacity: 0.95');
-  });
-
-  startButton.addEventListener('mouseleave', () => {
-    startButton.setAttribute('material', 'color: #333; opacity: 0.85');
-  });
-</script>
-
- 
   </head>
 
   <body>
@@ -70,7 +25,6 @@
         <img id="forest" src="images/HDR_forest.png">
 	<a-asset-item id="navigation" src="https://sof-webxr-assets.s3.us-east-2.amazonaws.com/meshes/NavMesh.glb" crossorigin="anonymous"></a-asset-item> 
 	<a-asset-item id="cabin" src="https://sof-webxr-assets.s3.us-east-2.amazonaws.com/meshes/CabinScene1.glb" crossorigin="anonymous"></a-asset-item>
-	<audio id="ambientWoods" src="https://sof-webxr-assets.s3.us-east-2.amazonaws.com/new_woods_mixdown.mp3" crossorigin="anonymous" preload="auto"></audio>
       </a-assets>
 
       <!-- PLAYER -->
