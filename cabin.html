@@ -14,9 +14,41 @@
 
    <script src="javascript/aframe-environment-component.min.js"></script>
 
+   <script>
+   const startBtn = document.getElementById('startExperience');
+const audioEl = document.getElementById('ambientWoods');
+
+startBtn.addEventListener('click', async () => {
+  console.log("Gesture detected — resuming audio");
+  await THREE.AudioContext.getContext().resume();   // Required on iOS and Chrome
+
+  try {
+    await audioEl.play();
+    console.log("Audio started successfully");
+  } catch (err) {
+    console.warn("Audio play failed:", err);
+  }
+
+  startBtn.style.display = 'none';  // Hide button after activation
+});
+   </script>
+
   </head>
 
   <body>
+
+<button id="startExperience" style="
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px 40px;
+  font-size: 20px;
+  z-index: 9999;
+">
+  Start Experience
+</button>
+
 
 <a-scene overlay-visibility="" class="fullscreen" inspector="url:https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js" keyboard-shortcuts="" screenshot="" vr-mode-ui="vr">
 
