@@ -19,18 +19,42 @@
     const scene = document.querySelector('a-scene');
 
     scene.addEventListener('loaded', () => {
+      // Create the Start Experience button
+      const startBtn = document.createElement('button');
+      startBtn.id = 'startExperience';
+      startBtn.textContent = 'Start Experience';
+      startBtn.style.position = 'absolute';
+      startBtn.style.top = '40%';
+      startBtn.style.left = '50%';
+      startBtn.style.transform = 'translate(-50%, -50%)';
+      startBtn.style.padding = '20px 40px';
+      startBtn.style.fontSize = '20px';
+      startBtn.style.zIndex = '9999';
+      startBtn.style.background = 'rgba(0,0,0,0.7)';
+      startBtn.style.color = 'white';
+      startBtn.style.border = 'none';
+      startBtn.style.borderRadius = '8px';
+      startBtn.style.cursor = 'pointer';
+      document.body.appendChild(startBtn);
+
       const soundEntity = document.getElementById('woodsMix');
 
-      function unlockAudio() {
+      async function unlockAudio() {
+        try {
+          await THREE.AudioContext.getContext().resume();
+        } catch (e) {
+          console.warn('AudioContext resume failed:', e);
+        }
+
         if (soundEntity && soundEntity.components.sound) {
           soundEntity.components.sound.playSound();
         }
-        document.removeEventListener('click', unlockAudio);
-        document.removeEventListener('touchstart', unlockAudio);
+
+        startBtn.remove();
       }
 
-      document.addEventListener('click', unlockAudio, { once: true });
-      document.addEventListener('touchstart', unlockAudio, { once: true });
+      startBtn.addEventListener('click', unlockAudio);
+      startBtn.addEventListener('touchstart', unlockAudio);
     });
   });
 </script>
