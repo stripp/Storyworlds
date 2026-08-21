@@ -72,7 +72,7 @@
         <img id="forest" src="images/HDR_forest.png">
 	<a-asset-item id="navigation" src="https://sof-webxr-assets.s3.us-east-2.amazonaws.com/meshes/NavMesh.glb" crossorigin="anonymous"></a-asset-item> 
 	<a-asset-item id="cabin" src="https://sof-webxr-assets.s3.us-east-2.amazonaws.com/meshes/CabinReduced.glb" crossorigin="anonymous"></a-asset-item>
-        <audio id="woodsAmbient" src="https://sof-webxr-assets.s3.us-east-2.amazonaws.com/newWoodsMixdown.mp3" crossorigin="anonymous" autoplay preload loop></audio>
+        <audio id="woodsAmbient" src="https://sof-webxr-assets.s3.us-east-2.amazonaws.com/newWoodsMixdown.mp3" crossorigin="anonymous"></audio>
       </a-assets>
 
       <!-- PLAYER -->
@@ -114,6 +114,11 @@
       <!-- Cabin environment model -->
       <a-entity gltf-model="#cabin" id="mainScene" position="0 0.01 0"></a-entity>
 
+     <!-- Sound Component -->
+
+     <a-entity id="woodsMix"
+          sound="src: #woodsAmbient; loop: true; positional: false; autoplay: false">
+     </a-entity>
 
       <!-- LIGHTING -->
       <a-entity id="amb" light="type: ambient; intensity: 10" position="0 3 0" visible></a-entity>
