@@ -1,34 +1,67 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Create the Start Experience button
+
+  // -----------------------------
+  // 1. Reliable iOS Detection
+  // -----------------------------
+  function isIOS() {
+    const ua = navigator.userAgent;
+    const iOS = /iPhone|iPad|iPod/.test(ua);
+    const iPadOS = navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
+    return iOS || iPadOS;
+  }
+
+  // -----------------------------
+  // 2. Create Overlay Container
+  // -----------------------------
+  const overlay = document.createElement('div');
+  overlay.id = 'experienceOverlay';
+  overlay.style.position = 'fixed';
+  overlay.style.top = '0';
+  overlay.style.left = '0';
+  overlay.style.width = '100%';
+  overlay.style.height = '100%';
+  overlay.style.display = 'flex';
+  overlay.style.alignItems = 'center';
+  overlay.style.justifyContent = 'center';
+  overlay.style.pointerEvents = 'none';
+  overlay.style.zIndex = '9999';
+  document.body.appendChild(overlay);
+
+  // -----------------------------
+  // 3. Create Start Experience Button
+  // -----------------------------
   const startBtn = document.createElement('button');
   startBtn.id = 'startExperience';
-  startBtn.textContent = 'Start Experience';
-  startBtn.style.position = 'absolute';
-  startBtn.style.top = '40%';
-  startBtn.style.left = '50%';
-  startBtn.style.transform = 'translate(-50%, -50%)';
+  startBtn.textContent = isIOS() ? 'Tap to Start Audio' : 'Start Experience';
+  startBtn.style.pointerEvents = 'auto';
   startBtn.style.padding = '20px 40px';
   startBtn.style.fontSize = '20px';
-  startBtn.style.zIndex = '9999';
-  document.body.appendChild(startBtn);
+  startBtn.style.borderRadius = '8px';
+  startBtn.style.background = 'rgba(0,0,0,0.7)';
+  startBtn.style.color = 'white';
+  startBtn.style.border = 'none';
+  startBtn.style.webkitUserSelect = 'none';
+  startBtn.style.userSelect = 'none';
+  overlay.appendChild(startBtn);
 
-  // Get audio element
+  // -----------------------------
+  // 4. Audio Element Setup
+  // -----------------------------
   const audioEl = document.getElementById('ambientWoods');
-
-  // Ensure looping is enabled
   audioEl.loop = true;
 
-  startBtn.addEventListener('click', async () => {
+  // -----------------------------
+  // 5. Unified Start Handler
+  // -----------------------------
+  async function handleStartExperience() {
     console.log("Gesture detected — resuming audio");
 
-    // Resume THREE.js AudioContext (required on iOS + Chrome)
     try {
       await THREE.AudioContext.getContext().resume();
     } catch (e) {
       console.warn("AudioContext resume failed:", e);
     }
 
-    // Play your audio element
     try {
       await audioEl.play();
       console.log("Audio started successfully");
@@ -36,7 +69,15 @@ document.addEventListener('DOMContentLoaded', () => {
       console.warn("Audio play failed:", err);
     }
 
-    // Hide the button
-    startBtn.style.display = 'none';
-  });
+    overlay.style.display = 'none';
+  }
+
+  // -----------------------------
+  // 6. Event Listeners
+  // -----------------------------
+  // iOS requires touchstart
+  startBtn.addEventListener('touchstart', handleStartExperience, { passive: true });
+
+  // Desktop fallback
+  startBtn.addEventListener('click', handleStartExperience);
 });
