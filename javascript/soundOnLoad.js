@@ -1,7 +1,7 @@
 window.addEventListener('load', () => {
   const scene = document.querySelector('a-scene');
 
-  scene.addEventListener('loaded', () => {
+  scene.addEventListener('assets-loaded', () => {
 
     function isIOS() {
       const ua = navigator.userAgent;
@@ -12,7 +12,7 @@ window.addEventListener('load', () => {
 
     const audioEl = document.getElementById('ambientWoods');
     if (!audioEl) {
-      console.warn('ambientWoods audio element not found.');
+      console.warn('ambientWoods audio element not found even after assets-loaded.');
       return;
     }
 
