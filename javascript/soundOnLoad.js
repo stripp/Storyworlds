@@ -1,8 +1,5 @@
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
 
-  // -----------------------------
-  // 1. Reliable iOS Detection
-  // -----------------------------
   function isIOS() {
     const ua = navigator.userAgent;
     const iOS = /iPhone|iPad|iPod/.test(ua);
@@ -10,9 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return iOS || iPadOS;
   }
 
-  // -----------------------------
-  // 2. Create Overlay Container
-  // -----------------------------
   const overlay = document.createElement('div');
   overlay.id = 'experienceOverlay';
   overlay.style.position = 'fixed';
@@ -27,9 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
   overlay.style.zIndex = '9999';
   document.body.appendChild(overlay);
 
-  // -----------------------------
-  // 3. Create Start Experience Button
-  // -----------------------------
   const startBtn = document.createElement('button');
   startBtn.id = 'startExperience';
   startBtn.textContent = isIOS() ? 'Tap to Start Audio' : 'Start Experience';
@@ -44,15 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
   startBtn.style.userSelect = 'none';
   overlay.appendChild(startBtn);
 
-  // -----------------------------
-  // 4. Audio Element Setup
-  // -----------------------------
   const audioEl = document.getElementById('ambientWoods');
   audioEl.loop = true;
 
-  // -----------------------------
-  // 5. Unified Start Handler
-  // -----------------------------
   async function handleStartExperience() {
     console.log("Gesture detected — resuming audio");
 
@@ -72,12 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
     overlay.style.display = 'none';
   }
 
-  // -----------------------------
-  // 6. Event Listeners
-  // -----------------------------
-  // iOS requires touchstart
   startBtn.addEventListener('touchstart', handleStartExperience, { passive: true });
-
-  // Desktop fallback
   startBtn.addEventListener('click', handleStartExperience);
 });
