@@ -14,7 +14,27 @@
 
    <script src="javascript/aframe-environment-component.min.js"></script>
 
-   <script src="javascript/soundOnLoad.js"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const scene = document.querySelector('a-scene');
+
+    scene.addEventListener('loaded', () => {
+      const soundEntity = document.getElementById('woodsMix');
+
+      function unlockAudio() {
+        if (soundEntity && soundEntity.components.sound) {
+          soundEntity.components.sound.playSound();
+        }
+        document.removeEventListener('click', unlockAudio);
+        document.removeEventListener('touchstart', unlockAudio);
+      }
+
+      document.addEventListener('click', unlockAudio, { once: true });
+      document.addEventListener('touchstart', unlockAudio, { once: true });
+    });
+  });
+</script>
+
 
   </head>
 
