@@ -12,8 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
   startBtn.style.zIndex = '9999';
   document.body.appendChild(startBtn);
 
-  // Get your audio element
+  // Get audio element
   const audioEl = document.getElementById('ambientWoods');
+
+  // Ensure looping is enabled
+  audioEl.loop = true;
 
   startBtn.addEventListener('click', async () => {
     console.log("Gesture detected — resuming audio");
