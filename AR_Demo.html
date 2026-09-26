@@ -79,14 +79,14 @@
   <p>A quick demo of AR in A-Frame with a Halloween pumpkin and cat.</p>
 
   <div id="AR-scene">
-<!--      <a-scene webxr="optionalFeatures:  hit-test;" ar-hit-test="target:#cat;">
-    > -->
-  <a-scene
+      <a-scene webxr="optionalFeatures:  hit-test;" ar-hit-test="target:#cat;" embedded>
+    > 
+ <!-- <a-scene
   xrweb="mode: immersive-ar; requiredFeatures: hit-test; optionalFeatures: dom-overlay; overlayElement: #overlay"
   xr-mode-ui="enabled: true; enterAREnabled: true; XRMode: ar;"
   renderer="colorManagement: true; antialias: true; foveationLevel: 1"
   embedded
-> 
+> -->
       <!-- ASSETS -->
       <a-assets>
        	<a-asset-item id="HalloweenCat" src="https://sof-webxr-assets.s3.us-east-2.amazonaws.com/meshes/SM_HalloweenCat.glb" crossorigin="anonymous"></a-asset-item>
