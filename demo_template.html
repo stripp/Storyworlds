@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo</title>
+
+  <!-- A‑Frame Core -->
+  <script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
+
+  <!-- Extras: nav-mesh + teleport -->
+  <script src="javascript/aframe-extras.min.js"></script>
+
+      <!-- Environment component -->
+
+   <script src="javascript/aframe-environment-component.min.js"></script>
+
+  <style>
+    :root {
+      --light-gray-bg: #f5f5f5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #fff;
+      color: #222;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 16px 8px 4px;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      color: #333;
+    }
+
+    p {
+      font-family: Georgia, serif;
+      background-color: var(--light-gray-bg);
+      color: #222;
+      max-width: 800px;
+      margin: 16px auto;
+      line-height: 1.6;
+      padding: 12px 20px 24px;
+    }
+
+    #VR-scene {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto 24px;
+      border: 2px solid #444;
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 3 / 2;
+      display: flex;
+    }
+
+    a-scene {
+      width: 100%;
+      height: 100%;
+    }
+
+    @media (max-width: 600px) {
+      #VR-scene {
+        border-width: 1px;
+        margin-bottom: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>WebXR VR Exercise</h1>
+  <p>A template for putting student team VR exercises on the web. Students can add descriptions of their projects here.</p>
+  <div id="VR-scene">
+    <a-scene embedded
+      shadow="type: pcf"
+      renderer="antialias: true; colorManagement: false; exposure: 1.0; toneMapping: None"
+      xr-mode-ui="enabled: true"
+      webxr="optionalFeatures: hand-tracking, layers"
+      cursor="rayOrigin: mouse"
+      inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js"
+    >
+
+      <!-- ASSETS -->
+      <a-assets>
+
+
+	<a-asset-item id="navmesh" src="https://sof-webxr-assets.s3.us-east-2.amazonaws.com/meshes/navmesh.glb" crossorigin="anonymous"></a-asset-item>
+
+
+        <a-asset-item id="Halloween" src="https://sof-webxr-assets.s3.us-east-2.amazonaws.com/meshes/HalloweenCat.glb"></a-asset-item>
+      </a-assets>
+
+      <!-- PLAYER -->
+      <a-entity id="rig" movement-controls="speed: 0.15; constrainToNavMesh: true; controls: checkpoint, gamepad, trackpad, keyboard, nipple;" position="10 0 6" rotation="0 40 0" checkpoint-controls gamepad-controls trackpad-controls keyboard-controls nipple-controls>
+        <a-entity id="head"
+                  camera
+                  look-controls="pointerLockEnabled: true" 
+		  position="1 1.6 -1"
+		  rotation>
+          <a-cursor material raycaster="objects: [data-raycastable]" cursor geometry position></a-cursor>
+        </a-entity>
+      </a-entity>
+
+   <!-- ENVIRONMENT -->
+
+      <a-entity id="environment"
+        environment="preset: poison">
+</a-entity>
+
+
+      <!-- LIGHTING -->
+
+      <!-- SCENE OBJECTS -->
+
+      <a-entity gltf-model="#Halloween" id="Boo" scale="1 1 1" position="-1.5 -1 2.5" rotation="0 0 0" shadow="cast: true"></a-entity>
+
+    </a-scene>
+  </div>
+
+</body>
+</html>
