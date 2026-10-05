@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<!-- Group 2: Peter Bilson, Karolina Stolarczy, Kendall Harrison, Alejandra Cuellar — created with codex -->
+<!-- Project description: After Hours is an interactive neon nightclub world.
+Visitors collect a wristband, complete a bag check, and meet the bouncer before
+exploring the dance floor, DJ booth, bar, and bathroom hallway. Animated guests,
+colored lights, lasers, and sound create the club atmosphere. Visitors can pick
+up and drink a cocktail, triggering a brief blur and swaying effect on desktop
+or a fading haze in VR. -->
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AFTER HOURS • Nightclub XR</title>
+<!-- Same A-Frame core as the class template. Internet required for core + default font.
+     The accompanying nightclub.glb is required. Keep it beside this HTML file.
+     Upload this HTML and nightclub.glb together to your class HTTPS host for headset WebXR. -->
+<script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#080b16;color:#f4f2ff;font-family:system-ui,sans-serif}header,footer{max-width:1200px;margin:auto;padding:20px 24px}header{display:flex;align-items:center;justify-content:space-between;gap:20px}.eyebrow{font-size:10px;letter-spacing:4px;color:#79ece7}h1{font-size:30px;letter-spacing:3px;margin:5px 0}header p,footer{font-size:12px;color:#acb2c9;line-height:1.7}header p{max-width:420px}#VR-scene{height:68vh;min-height:390px;position:relative;border-block:1px solid #353047}a-scene{width:100%;height:100%}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}button{border:1px solid #454058;border-radius:6px;background:#19172c;color:#e8e8ff;padding:10px 14px;cursor:pointer}button:hover,button:focus-visible{border-color:#5de9ed;background:#282341}#status{color:#78e7dd;min-height:22px}footer p{margin:6px 0}@media(max-width:650px){header{display:block;padding:14px 18px}h1{font-size:24px}header p{margin-bottom:0}#VR-scene{height:60vh}}
+
+#VR-scene{overflow:hidden}#VR-scene canvas{transition:filter .6s ease;transform-origin:center}#VR-scene.sip-blur canvas{filter:blur(5px)}
+</style>
+<script>
+// Register components BEFORE the scene. All project-specific code lives in this file.
+if(window.AFRAME){
+AFRAME.registerComponent('club-action',{schema:{type:'string'},init:function(){
+ this.el.addEventListener('click',()=>window.club&&window.club.act(this.data));
+}});
+// Fixed travel points prevent wall clipping and motion sickness; no navigation plugin needed.
+// The head's tracked offset is subtracted so room-scale users land at the intended point.
+AFRAME.registerComponent('travel',{schema:{target:{type:'vec3'},inside:{default:true}},init:function(){
+ this.el.addEventListener('click',()=>window.club&&window.club.go(this.data.target,this.data.inside));
+}});
+
+// Continuous movement: keyboard, on-screen buttons, and the left XR thumbstick.
+// Collision rectangles keep the rig out of walls/furniture. Room-scale physical
+// movement remains headset-controlled; use your headset's normal guardian boundary.
+AFRAME.registerComponent('club-movement',{
+ init:function(){
+  this.keys=new Set();this.touch={x:0,z:0};this.direction=new THREE.Vector3();
+  this.q=new THREE.Quaternion();
+  this.down=e=>{if(/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName))return;
+   if(['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code)){e.preventDefault();this.keys.add(e.code);}};
+  this.up=e=>this.keys.delete(e.code);
+  this.clear=()=>{this.keys.clear();this.touch={x:0,z:0};};
+  window.addEventListener('keydown',this.down);window.addEventListener('keyup',this.up);
+  window.addEventListener('blur',this.clear);document.addEventListener('visibilitychange',this.clear);
+ },
+ allowed:function(x,z){
+  if(x< -9.5||x>9.5||z< -14.4||z>15)return false;
+  // Facade and locked entrance. Keep a small player-radius clearance.
+  if(z>5.55&&z<6.45&&(Math.abs(x)>1.55||!window.club?.state.entry))return false;
+  if(z<6&&!window.club?.state.entry)return false;
+  const solids=[[-8.4,-5.6,-7.4,1.4],[5.6,6.4,-14.7,-4.1],[5.6,9.9,-4.9,-4.1],[-4.4,4.4,-14.7,-10.0],[8.7,9.9,-13.1,-10.9],[6.3,7.7,-14.7,-12.7]];
+  return !solids.some(r=>x>r[0]&&x<r[1]&&z>r[2]&&z<r[3]);
+ },
+ tick:function(t,dt){
+  if(!dt)return;
+  let x=Number(this.keys.has('KeyD')||this.keys.has('ArrowRight'))-Number(this.keys.has('KeyA')||this.keys.has('ArrowLeft'))+this.touch.x;
+  let z=Number(this.keys.has('KeyW')||this.keys.has('ArrowUp'))-Number(this.keys.has('KeyS')||this.keys.has('ArrowDown'))+this.touch.z;
+  const session=this.el.sceneEl.renderer?.xr.getSession();
+  if(session)for(const source of session.inputSources){if(source.handedness==='left'&&source.gamepad){const a=source.gamepad.axes;const sx=a.length>=4?a[2]:a[0]||0,sy=a.length>=4?a[3]:a[1]||0;x+=Math.abs(sx)>.15?sx:0;z-=Math.abs(sy)>.15?sy:0;}}
+  const length=Math.hypot(x,z);if(!length)return;if(length>1){x/=length;z/=length;}
+  const head=document.querySelector('#head');head.object3D.getWorldQuaternion(this.q);
+  this.direction.set(0,0,-1).applyQuaternion(this.q);this.direction.y=0;
+  if(this.direction.lengthSq()<.001)return;this.direction.normalize();
+  const step=Math.min(dt,50)/1000*2.1,p=this.el.object3D.position;
+  const dx=(this.direction.x*z-this.direction.z*x)*step,dz=(this.direction.z*z+this.direction.x*x)*step;
+  if(this.allowed(p.x+dx,p.z))p.x+=dx;if(this.allowed(p.x,p.z+dz))p.z+=dz;
+ },
+ remove:function(){window.removeEventListener('keydown',this.down);window.removeEventListener('keyup',this.up);window.removeEventListener('blur',this.clear);document.removeEventListener('visibilitychange',this.clear);}
+});
+AFRAME.registerComponent('guest',{schema:{color:{default:'#a08cff'},dance:{default:false}},init:function(){
+ this.el.innerHTML='<a-cylinder position="0 .95 0" radius=".23" height=".65" color="'+this.data.color+'"></a-cylinder><a-sphere position="0 1.5 0" radius=".19" color="#c49a82"></a-sphere><a-box position="-.12 .35 0" width=".14" height=".6" depth=".17" color="#171b2b"></a-box><a-box position=".12 .35 0" width=".14" height=".6" depth=".17" color="#171b2b"></a-box><a-cylinder position="-.31 .96 0" radius=".065" height=".6" rotation="0 0 -25" color="'+this.data.color+'"></a-cylinder><a-cylinder position=".31 .96 0" radius=".065" height=".6" rotation="0 0 25" color="'+this.data.color+'"></a-cylinder>';
+ if(this.data.dance)this.el.setAttribute('animation','property: rotation; from: 0 -15 -7; to: 0 15 7; dir: alternate; dur: 650; loop: true; easing: easeInOutSine');
+}});
+}
+</script>
+</head>
+<body>
+<header><div><div class="eyebrow">AN INTERACTIVE WEBXR EXPERIENCE</div><h1>AFTER HOURS<span style="color:#f276cd"> / </span>XR</h1></div><p>Get your wristband. Pass the door. Find your rhythm.<br>WASD / arrows to walk • drag to look • click signs or aim the dot and press E.<br>VR: left thumbstick to walk; aim and press trigger to interact. No controller? Gaze for 1.5 seconds.</p></header>
+<div id="VR-scene">
+<a-scene embedded renderer="antialias: true; colorManagement: true" xr-mode-ui="enabled: true" webxr="optionalFeatures: hand-tracking, layers" background="color: #050713" fog="type: exponential; color: #080a19; density: 0.018">
+<!-- ASSETS: Add real assets here when available (and serve them from your HTTPS host).
+<a-asset-item id="bouncerGLB" src="models/bouncer.glb"></a-asset-item>
+<a-asset-item id="dancerGLB" src="models/dancer.glb"></a-asset-item>
+<audio id="clubTrack" src="audio/music.mp3" preload="auto" crossorigin="anonymous"></audio>
+<audio id="crowdTrack" src="audio/crowd.mp3" preload="auto" crossorigin="anonymous"></audio>
+To replace a primitive guest: remove its guest attribute and add gltf-model="#bouncerGLB".
+Set model scale/rotation for your asset. Animated GLBs need a compatible animation-mixer
+component (for example the class extras script); it is intentionally not required here.
+For positional sound add sound="src: #clubTrack; loop: true; volume: 0.4" to the DJ,
+then call entity.components.sound.playSound() from an explicit click interaction.
+-->
+<a-assets timeout="10000"><a-asset-item id="nightclub-model" src="nightclub.glb"></a-asset-item><a-mixin id="neon" material="shader: flat; color: #62efec"></a-mixin></a-assets>
+<!-- The single GLB holds the arranged static environment. Interactive props,
+     animated guests, signs and lights remain in A-Frame for scripting. -->
+<a-entity id="nightclub-environment" gltf-model="#nightclub-model"></a-entity>
+<!-- PLAYER: rig, head, look controls and cursor retained from the template. -->
+<a-entity id="rig" club-movement position="0 0 12">
+ <a-entity id="head" camera look-controls="pointerLockEnabled: false" position="0 1.6 0">
+  <a-entity id="gaze" visible="false" position="0 0 -1" geometry="primitive: ring; radiusInner: .009; radiusOuter: .014" material="shader: flat; color: #77ffff" raycaster="objects: .interactive; far: 25" cursor="fuse: false"></a-entity>
+  <a-text id="vr-status" value="Aim at a sign + press E, click, or use VR trigger." position="0 -.42 -1.2" align="center" width="1.35" color="#9affee"></a-text>
+  <a-torus id="worn-band" visible="false" position="-.32 -.27 -.65" radius=".055" radius-tubular=".012" color="#ff65d4" material="shader: flat"></a-torus>
+  <!-- In-headset drink action; its hit target is enabled only while holding a cup. -->
+  <a-entity id="sip-control" visible="false" position="0 -.23 -.85">
+   <a-plane id="sip-hit" width=".36" height=".085" color="#372544" club-action="sip"></a-plane>
+   <a-text value="DRINK / F" align="center" width=".6" position="0 0 .004" color="#91fff0"></a-text>
+  </a-entity>
+  <!-- Stereo-safe soft haze in VR; desktop also uses a short canvas blur. -->
+  <a-sphere id="sip-haze" radius=".3" visible="false" material="shader: flat; color: #d9cbea; side: back; transparent: true; opacity: 0; depthTest: false; depthWrite: false"></a-sphere>
+  <a-cylinder id="held-drink" visible="false" position=".3 -.28 -.65" radius=".035" height=".12" color="#63eeda"></a-cylinder>
+ </a-entity>
+ <a-entity id="left-hand" laser-controls="hand: left" raycaster="objects: .interactive; far: 25"></a-entity>
+ <a-entity id="right-hand" laser-controls="hand: right" raycaster="objects: .interactive; far: 25"></a-entity>
+</a-entity>
+<a-entity id="mouse" cursor="rayOrigin: mouse; fuse: false" raycaster="objects: .interactive; far: 35"></a-entity>
+<!-- ENVIRONMENT: the Halloween environment is replaced with a custom club shell. -->
+<!-- Mesh exported to nightclub.glb -->
+<!-- Mesh exported to nightclub.glb -->
+<!-- Mesh exported to nightclub.glb -->
+<!-- Mesh exported to nightclub.glb -->
+<!-- Mesh exported to nightclub.glb -->
+<!-- Mesh exported to nightclub.glb -->
+<!-- Front facade leaves a real doorway between x=-2 and x=2. -->
+<!-- Mesh exported to nightclub.glb -->
+<!-- Mesh exported to nightclub.glb -->
+<!-- Mesh exported to nightclub.glb -->
+<a-box id="door" position="0 1.7 6" width="3.8" height="3.4" depth=".15" color="#24163d"></a-box>
+<a-text value="AFTER HOURS" position="0 4.3 6.2" align="center" width="9" color="#f677d9"></a-text>
+<a-text value="N I G H T C L U B   /   X R" position="0 3.75 6.2" align="center" width="4" color="#7ce9ed"></a-text>
+<a-entity light="type: ambient; color: #b3b5e8; intensity: .5"></a-entity>
+<a-entity light="type: point; color: #ee51cd; intensity: 1.5; distance: 19; decay: 1" position="-4 3 -3"></a-entity>
+<a-entity light="type: point; color: #40ceff; intensity: 1.6; distance: 20; decay: 1" position="4 3 -6"></a-entity>
+<a-entity light="type: point; color: #adbedf; intensity: 1; distance: 12" position="0 3 10"></a-entity>
+<!-- QUEUE + ENTRY -->
+<a-entity id="queue"></a-entity>
+<a-entity guest="color: #292d46" position="-2.8 0 10" rotation="0 40 0"></a-entity>
+<a-entity guest="color: #653a6d" position="-2.8 0 12" rotation="0 70 0"></a-entity>
+<!-- Mesh exported to nightclub.glb -->
+<a-torus id="pickup-band" position="-3.9 1.6 7.5" radius=".22" radius-tubular=".055" material="shader: flat; color: #ff69d1" animation="property: rotation; to: 0 360 0; dur: 4000; loop: true; easing: linear"></a-torus>
+<a-entity id="bouncer" guest="color: #111323" position="2.7 0 7" scale="1.2 1.2 1.2"></a-entity>
+<!-- Mesh exported to nightclub.glb -->
+<!-- Mesh exported to nightclub.glb -->
+<!-- INTERIOR: dance floor and DJ stage -->
+<a-entity id="tiles"></a-entity>
+<!-- Mesh exported to nightclub.glb -->
+<!-- Mesh exported to nightclub.glb -->
+<!-- Mesh exported to nightclub.glb -->
+<a-entity id="dj" guest="color: #ab67ed" position="0 .4 -13"></a-entity>
+<!-- Mesh exported to nightclub.glb -->
+<!-- Mesh exported to nightclub.glb -->
+<!-- Mesh exported to nightclub.glb -->
+<a-text value="AFTER / HOURS" position="0 3.1 -14.7" align="center" width="12" color="#f471d3"></a-text>
+<a-text value="LOSE YOURSELF IN THE SOUND" position="0 2.35 -14.7" align="center" width="5" color="#7edce6"></a-text>
+<a-entity id="speakers"></a-entity>
+<a-entity id="dancers"></a-entity>
+<!-- Disco ball is faceted geometry, not a heavy reflection map. No flashing/strobing. -->
+<!-- Mesh exported to nightclub.glb -->
+<a-icosahedron position="0 3.85 -4" radius=".58" detail="1" material="color: #abc5e9; metalness: .85; roughness: .24" animation="property: rotation; to: 0 360 0; dur: 18000; loop: true; easing: linear"></a-icosahedron>
+<a-entity id="lasers" position="0 3.3 -11" animation="property: rotation; from: 0 -18 0; to: 0 18 0; dir: alternate; dur: 6000; loop: true; easing: easeInOutSine"></a-entity>
+<!-- BAR: replace the bar/dj/guest entities with GLBs once your team has assets. -->
+<!-- Mesh exported to nightclub.glb -->
+<!-- Mesh exported to nightclub.glb -->
+<!-- Mesh exported to nightclub.glb -->
+<a-entity guest="color: #5cc9cc" position="-8.7 0 -3" rotation="0 90 0"></a-entity>
+<a-text value="THE NEON BAR" position="-8.8 3 -3" rotation="0 90 0" align="center" width="5" color="#fa7bd2"></a-text>
+<a-entity id="bar-props"></a-entity>
+<!-- Hallway at right; bathroom at back, open entrance faces the main room. -->
+<!-- Mesh exported to nightclub.glb -->
+<!-- Mesh exported to nightclub.glb -->
+<a-text value="WC / QUIET HALL" position="7.6 2.8 -4.38" align="center" width="4" color="#7ef4d7"></a-text>
+<!-- Mesh exported to nightclub.glb -->
+<!-- Mesh exported to nightclub.glb -->
+<!-- Mesh exported to nightclub.glb -->
+<!-- Mesh exported to nightclub.glb -->
+<!-- Mesh exported to nightclub.glb -->
+<a-entity light="type: point; color: #acdedf; intensity: .7; distance: 7" position="8 3 -11"></a-entity>
+<a-entity id="signs"></a-entity>
+</a-scene>
+</div>
+<footer><div id="status" role="status" aria-live="polite">Loading the club…</div><div class="toolbar" id="controls">
+<button data-walk="forward" aria-label="Walk forward">↑ Forward</button><button data-walk="left" aria-label="Walk left">← Left</button><button data-walk="back" aria-label="Walk backward">↓ Back</button><button data-walk="right" aria-label="Walk right">→ Right</button><button data-go="entrance">Entrance</button><button data-action="band">Pick up wristband</button><button data-action="bag">Bag check</button><button data-action="entry">Ask bouncer / Enter</button><button data-go="floor">Dance floor</button><button data-go="bar">Bar</button><button data-go="hall">Hallway</button><button data-go="bathroom">Bathroom</button><button id="sip-button" data-action="sip" hidden>Drink cocktail (F)</button><button id="clear-sip" data-action="clear-sip" hidden>Clear blur</button><button data-action="music">Sound on / off</button><button data-action="motion">Motion on / off</button><button data-action="reset">Start over</button>
+</div><p>Walk with WASD / arrow keys, or hold the direction buttons above. Drag inside the scene to turn. Glowing destination signs also let you jump between rooms. At the bar, select “Take a drink”, then select “Drink” or press F to sip. The blur and gentle stumbling sway clear after four seconds (Escape clears it immediately); on the floor, select “Say hello.” Sound starts only when requested. Motion can be paused.</p><p>For VR, serve this file over HTTPS and use the headset button. Desktop preview requires an internet connection. The bathroom mirror is a decorative stand-in.</p></footer>
+<script>
+(()=>{
+'use strict';
+const $=s=>document.querySelector(s),scene=$('a-scene');
+if(!window.AFRAME){$('#status').textContent='A-Frame could not load. Check your internet connection and reload.';return;}
+function el(tag,attrs,parent){const e=document.createElement(tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));parent.appendChild(e);return e;}
+function sign(label,pos,action,rotation='0 0 0',color='#6eebe5'){
+ const e=el('a-entity',{position:pos,rotation},$('#signs'));
+ const a={'width':2.4,height:.62,depth:.06,color:'#20233b',class:'interactive'};
+ if(typeof action==='string')a['club-action']=action;else a.travel='target: '+action.p+'; inside: '+action.inside;
+ el('a-box',a,e);el('a-text',{value:label,align:'center',width:2.15,color,position:'0 0 .04'},e);return e;
+}
+// Scene dressing uses deterministic loops rather than hundreds of duplicate HTML lines.
+for(let z=8.5;z<=13;z+=1.5){for(const x of [-1.7,1.7])el('a-cylinder',{position:`${x} .5 ${z}`,radius:.055,height:1,color:'#929aad'},$('#queue'));}
+for(const x of [-1.7,1.7])el('a-box',{position:`${x} .8 10.75`,width:.035,height:.04,depth:4.5,color:'#a44378'},$('#queue'));
+for(let x=-3;x<=3;x++)for(let z=-8;z<=-2;z++)el('a-box',{position:`${x} .02 ${z}`,width:.94,height:.03,depth:.94,material:`shader: flat; color: ${(x+z)%2?'#2b4066':'#593261'}`},$('#tiles'));
+// A fuller crowd with varied timing; leave the central approach and room entrances open.
+const crowdColors=['#e679bc','#62bdcc','#a997e9','#dcb875','#687ed8','#d58466'];
+const danceSpots=[[-2,-5],[2,-7],[-1,-8],[3,-3],[-3,-3],[-2,-2.3],[1.5,-3.6],[-1.3,-4],[2.8,-5],[-3,-6.8],[1.2,-8.3],[3.5,-8],[-2.5,-8.5],[3.6,-6.5],[-.8,-6.2],[1,-5.8]];
+danceSpots.forEach(([x,z],i)=>{
+ const guest=el('a-entity',{guest:`color: ${crowdColors[i%6]}; dance: true`,position:`${x} .05 ${z}`,scale:`1 ${.9+(i%4)*.07} 1`},$('#dancers'));
+ guest.addEventListener('loaded',()=>{
+  guest.setAttribute('animation',`property: rotation; from: 0 ${i*37-14} -6; to: 0 ${i*37+14} 6; dir: alternate; dur: ${530+(i%5)*115}; delay: ${i*83}; loop: true; easing: easeInOutSine`);
+  guest.setAttribute('animation__bounce',`property: position; from: ${x} .05 ${z}; to: ${x} .15 ${z}; dir: alternate; dur: ${340+(i%3)*80}; loop: true; easing: easeInOutSine`);
+ },{once:true});
+});
+// Friends at the bar and along the lounge edges.
+[[-4.4,1.8],[-4.3,-2],[-4.4,-4.8],[-8.8,2.5],[4.4,1],[3.5,2],[7.6,1.2],[8.5,.5]].forEach(([x,z],i)=>el('a-entity',{guest:`color: ${crowdColors[(i+2)%6]}`,position:`${x} 0 ${z}`,rotation:`0 ${i%2?65:-65} 0`},scene));
+// Two rows of waiting guests; the path straight up to the bouncer stays clear.
+[[-1,9],[-1,10.5],[-1,12],[-1,13.5],[2.7,9.3],[2.8,10.8],[2.7,12.3],[2.8,13.8],[-4.1,11],[-4,12.6]].forEach(([x,z],i)=>el('a-entity',{guest:`color: ${crowdColors[i%6]}`,position:`${x} 0 ${z}`,rotation:`0 ${155+(i%3)*20} 0`},$('#queue')));
+
+for(const x of [-3.3,3.3]){el('a-box',{position:`${x} 1.3 -12`,width:1,height:2.2,depth:1,color:'#101522'},$('#speakers'));for(const y of [.8,1.65])el('a-circle',{position:`${x} ${y} -11.49`,radius:.33,color:'#354058'},$('#speakers'));}
+for(let i=0;i<9;i++)el('a-entity',{line:`start: ${(i-4)*.3} 0 0; end: ${(i-4)*1.1} -1.8 10; color: ${i%2?'#f86bd4':'#60dfef'}; opacity: .38`},$('#lasers'));
+for(let i=0;i<9;i++){el('a-cylinder',{position:`-7 1.62 ${.2-i*.75}`,radius:.09,height:.36,color:i%2?'#e579d1':'#68cfd3'},$('#bar-props'));}
+for(const z of [-6,-3,0]){el('a-cylinder',{position:`-4.6 .6 ${z}`,radius:.3,height:.12,color:'#925079'},$('#bar-props'));el('a-cylinder',{position:`-4.6 .3 ${z}`,radius:.05,height:.6,color:'#657180'},$('#bar-props'));el('a-torus',{position:`-7 3.5 ${z}`,rotation:'90 0 0',radius:1,'radius-tubular':.025,mixin:'neon'},$('#bar-props'));}
+for(const x of [-9.8,9.8])el('a-box',{position:`${x} 3.8 -4`,width:.04,height:.045,depth:20,mixin:'neon'},scene);
+sign('01 / PICK UP WRISTBAND','-3.9 2.25 7.5','band');
+sign('02 / BAG CHECK','4.5 1.9 7.5','bag');
+sign('03 / ASK BOUNCER - ENTER','0 2.3 6.3','entry');
+sign('WEAR YOUR WRISTBAND\nAT ALL TIMES','-6.9 2.2 6.25','notice');
+sign('WRISTBANDS REQUIRED\nKEEP YOUR BAND ON','6.9 2.9 6.25','notice');
+sign('DANCE FLOOR / GO','0 1.1 1',{p:'0 0 -1',inside:true});
+sign('BAR / GO','-5.4 2.3 -1',{p:'-3.8 0 -1',inside:true},'0 65 0');
+sign('TAKE / RETURN A DRINK','-5.7 1.8 -3','drink','0 90 0');
+sign('SAY HELLO','2 2.1 -7','hello');
+sign('DJ BOOTH / GO','0 2 -10.5',{p:'0 0 -9.5',inside:true});
+sign('SOUND ON / OFF','0 1.2 -11.4','music');
+sign('HALLWAY / GO','7.5 1.9 -4.3',{p:'8 0 -3',inside:true});
+sign('BATHROOM / GO','8 1.8 -10',{p:'8 0 -10.8',inside:true});
+sign('BACK TO DANCE FLOOR','6.2 1.8 -11',{p:'0 0 -1',inside:true},'0 90 0');
+sign('DANCE FLOOR / GO','4 1.8 -2',{p:'0 0 -1',inside:true},'0 -90 0');
+sign('EXIT / OUTSIDE','0 2.4 5.8',{p:'0 0 12',inside:false},'0 180 0');
+const state={band:false,bag:false,entry:false,drink:false,motion:true};
+const points={entrance:{x:0,y:0,z:12},floor:{x:0,y:0,z:-1},bar:{x:-3.8,y:0,z:-1},hall:{x:8,y:0,z:-3},bathroom:{x:8,y:0,z:-10.8}};
+function say(t){$('#status').textContent=t;$('#vr-status').setAttribute('value',t);}
+function location(){const v=new THREE.Vector3();$('#head').object3D.getWorldPosition(v);return v;}
+function go(p,inside){if(inside&&!state.entry){say('Door locked: collect a wristband, check your bag, then ask the bouncer.');return;}
+ const v=location(),rig=$('#rig').object3D;rig.position.x+=p.x-v.x;rig.position.z+=p.z-v.z;rig.position.y=0;say(inside?'Welcome inside. Select a glowing sign to explore.':'Entrance: wristband, bag check, then bouncer.');}
+// Optional, original synthesized beat: no download, no autoplay, no licensed audio.
+let audio,master,timer,step=0,sound=false;
+function beat(){if(!audio||!sound)return;const now=audio.currentTime;
+ const tone=(freq,duration,type,vol)=>{const o=audio.createOscillator(),g=audio.createGain();o.type=type;o.frequency.setValueAtTime(freq,now);g.gain.setValueAtTime(vol,now);g.gain.exponentialRampToValueAtTime(.001,now+duration);o.connect(g);g.connect(master);o.start(now);o.stop(now+duration);};
+ if(step%2===0)tone(step%8===0?65:55,.22,'sine',.6);tone([130.81,155.56,196,174.61][Math.floor(step/4)%4],.12,'triangle',.08);if(step%2)tone(1800,.025,'triangle',.035);step++;}
+async function toggleSound(){try{if(!audio){audio=new(window.AudioContext||window.webkitAudioContext)();master=audio.createGain();master.gain.value=.3;master.connect(audio.destination);}await audio.resume();sound=!sound;if(sound){beat();timer=setInterval(beat,250);}else{clearInterval(timer);}say(sound?'Sound on: original demo beat.':'Sound off.');}catch(e){say('Sound unavailable in this browser. The scene still works.');}}
+function nearDoor(){return location().z>5;}
+let sipTimer=null,hazeFrame=null;
+function syncDrink(){
+ $('#held-drink').setAttribute('visible',state.drink);
+ $('#sip-control').setAttribute('visible',state.drink);
+ $('#sip-hit').classList.toggle('interactive',state.drink);
+ $('#sip-button').hidden=!state.drink;
+}
+function clearSip(){
+ clearTimeout(sipTimer);cancelAnimationFrame(hazeFrame);sipTimer=null;
+ $('#VR-scene').classList.remove('sip-blur');
+ if(scene.canvas){scene.canvas.style.transform='';scene.canvas.style.filter='';}
+ $('#sip-haze').setAttribute('visible',false);
+ $('#sip-haze').setAttribute('material','opacity',0);
+ $('#clear-sip').hidden=true;
+}
+function sip(){
+ if(!state.drink)return say('Pick up a cocktail at the bar first.');
+ clearSip();state.drink=false;syncDrink();
+ say('Cocktail finished. Vision clears in 4 seconds. Escape clears it now.');
+ $('#VR-scene').classList.add('sip-blur');$('#clear-sip').hidden=false;
+ const start=performance.now();
+ // CSS filters do not reach the XR framebuffer: use a gentle fading haze there.
+ function fade(now){
+  const elapsed=now-start;
+  const amount=Math.min(1,elapsed/500)*Math.min(1,Math.max(0,(4000-elapsed)/1000));
+  const xr=!!scene.renderer?.xr.getSession();
+  const sway=state.motion&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!xr;
+  if(scene.canvas){
+   const roll=Math.sin(elapsed/370)*1.5*amount;
+   const bob=Math.sin(elapsed/210)*5*amount;
+   scene.canvas.style.transform=sway?`scale(1.07) translate(${Math.sin(elapsed/460)*8*amount}px,${bob}px) rotate(${roll}deg)`:'';
+   scene.canvas.style.filter=xr?'':`blur(${(3+Math.sin(elapsed/430)*1.5)*amount}px)`;
+  }
+  $('#sip-haze').setAttribute('visible',!!scene.renderer?.xr.getSession());
+  $('#sip-haze').setAttribute('material','opacity',.24*amount);
+  if(elapsed<4000)hazeFrame=requestAnimationFrame(fade);
+ }
+ hazeFrame=requestAnimationFrame(fade);
+ sipTimer=setTimeout(()=>{clearSip();say('Vision clear. Explore the club or return to the bar.');},4000);
+}
+function act(a){
+ if(a==='sip'){sip();return;}
+ if(a==='clear-sip'){clearSip();say('Vision clear.');return;}
+ if(a==='band'){if(!nearDoor())return say('Return to the entrance for a wristband.');state.band=true;$('#pickup-band').setAttribute('visible',false);$('#worn-band').setAttribute('visible',true);say('Wristband on! Keep it on at all times. Next: bag check.');}
+ if(a==='bag'){if(!nearDoor())return say('Bag check is at the entrance.');state.bag=true;say('Bag checked. Ask the bouncer to enter.');}
+ if(a==='entry'){if(!state.band||!state.bag)return say(!state.band?'Bouncer: please collect your wristband first.':'Bouncer: please complete the bag check.');state.entry=true;$('#door').setAttribute('visible',false);go(points.floor,true);say('Bouncer: welcome! Keep your wristband on at all times.');}
+ if(a==='drink'){const p=location();if(!state.entry||p.x> -2)return say('Travel to the bar to pick up a drink.');state.drink=!state.drink;syncDrink();say(state.drink?'Cocktail ready. Select DRINK or press F to sip.':'Drink returned. Thanks!');}
+ if(a==='hello')say(state.entry?'Guest: great set tonight! Meet us on the dance floor.':'Enter the club to meet the guests.');
+ if(a==='notice')say('Keep your wristband on at all times inside the club.');
+ if(a==='music')toggleSound();
+ if(a==='motion'){state.motion=!state.motion;document.querySelectorAll('a-entity, a-torus, a-icosahedron').forEach(e=>{Object.entries(e.components||{}).forEach(([name,c])=>{if(name==='animation'||name.startsWith('animation__'))state.motion?c.play():c.pause();});});say(state.motion?'Scene animation resumed.':'Scene animation paused.');}
+ if(a==='reset'){clearSip();state.band=state.bag=state.entry=state.drink=false;syncDrink();$('#door').setAttribute('visible',true);$('#pickup-band').setAttribute('visible',true);$('#worn-band').setAttribute('visible',false);$('#held-drink').setAttribute('visible',false);if(sound){sound=false;clearInterval(timer);}go(points.entrance,false);say('Start again: pick up your wristband.');}
+}
+window.club={act,go,state};
+window.addEventListener('keydown',e=>{
+ if(e.repeat||/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName))return;
+ if(e.code==='KeyF')act('sip');
+ if(e.code==='Escape')clearSip();
+});
+
+for(const b of document.querySelectorAll('[data-walk]')){
+ b.style.touchAction='none';
+ b.addEventListener('pointerdown',e=>{e.preventDefault();b.setPointerCapture(e.pointerId);const m=$('#rig').components['club-movement'];if(m)m.touch=({forward:{x:0,z:1},back:{x:0,z:-1},left:{x:-1,z:0},right:{x:1,z:0}})[b.dataset.walk];});
+ const stop=()=>{const m=$('#rig').components['club-movement'];if(m)m.touch={x:0,z:0};};
+ b.addEventListener('pointerup',stop);b.addEventListener('pointercancel',stop);b.addEventListener('lostpointercapture',stop);
+}
+
+$('#controls').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.action)act(b.dataset.action);if(b.dataset.go)go(points[b.dataset.go],b.dataset.go!=='entrance');});
+// Enable gaze only in immersive mode; disable it while a tracked controller is connected.
+const hands=new Set();let immersive=false;
+function inputMode(){
+ // Desktop fullscreen is not an immersive WebXR session. Keep mouse input active.
+ const xr=!!scene.renderer?.xr.getSession();
+ const gaze=!xr||hands.size===0;
+ $('#gaze').setAttribute('visible',gaze);
+ $('#gaze').setAttribute('cursor','fuse',xr&&gaze);
+ $('#gaze').setAttribute('cursor','fuseTimeout',1500);
+ $('#gaze').setAttribute('raycaster','enabled',gaze);
+ $('#mouse').setAttribute('raycaster','enabled',!xr);
+}
+// Keyboard interaction remains accessible when the HTML toolbar is hidden.
+window.addEventListener('keydown',e=>{
+ if(e.code!=='KeyE'||e.repeat||/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName))return;
+ const camera=scene.camera;if(!camera)return;
+ const ray=new THREE.Raycaster();ray.setFromCamera(new THREE.Vector2(0,0),camera);
+ const objects=Array.from(document.querySelectorAll('.interactive')).map(e=>e.object3D);
+ const hit=ray.intersectObjects(objects,true).find(h=>h.distance<=35);
+ if(hit){let object=hit.object;while(object&&!object.el)object=object.parent;
+ const target=object?.el?.closest('.interactive');if(target)target.emit('click',{intersection:hit});}
+});
+function bindXRInput(){
+ scene.renderer.xr.addEventListener('sessionstart',inputMode);
+ scene.renderer.xr.addEventListener('sessionend',()=>setTimeout(inputMode,0));
+ inputMode();
+}
+if(scene.renderer)bindXRInput();else scene.addEventListener('renderstart',bindXRInput,{once:true});
+
+scene.addEventListener('enter-vr',()=>{immersive=true;inputMode();});scene.addEventListener('exit-vr',()=>{immersive=false;inputMode();});
+for(const id of ['#left-hand','#right-hand']){$(id).addEventListener('controllerconnected',()=>{hands.add(id);inputMode();});$(id).addEventListener('controllerdisconnected',()=>{hands.delete(id);inputMode();});}
+inputMode();document.addEventListener('visibilitychange',()=>{if(document.hidden&&sound){sound=false;clearInterval(timer);say('Sound paused. Select Sound to resume.');}});
+const ready=()=>{say('Wristband: click the 01 sign, or aim the center dot at it and press E.');if(matchMedia('(prefers-reduced-motion: reduce)').matches)act('motion');};
+if(scene.hasLoaded)ready();else scene.addEventListener('loaded',ready,{once:true});
+})();
+</script>
+</body>
+</html>
