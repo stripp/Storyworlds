@@ -1,0 +1,248 @@
+<!—CORREA, LUGO, FRANCO-->
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Group 6</title>
+
+ 
+
+  <!-- A‑Frame Core -->
+
+  <script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
+
+ 
+
+  <!-- Extras: nav-mesh + teleport -->
+
+  <script src="javascript/aframe-extras.min.js"></script>
+
+ 
+
+  <!-- ENVIRONMENT -->
+
+  <script src="https://cdn.jsdelivr.net/npm/aframe-environment-component@1.5.0/dist/aframe-environment-component.min.js"></script>
+
+ 
+
+  <style>
+
+    :root {
+
+      --light-gray-bg: #f5f5f5;
+
+    }
+
+ 
+
+    * {
+
+      box-sizing: border-box;
+
+    }
+
+ 
+
+    body {
+
+      margin: 0;
+
+      padding: 0;
+
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+      background: #fff;
+
+      color: #222;
+
+      display: flex;
+
+      flex-direction: column;
+
+      min-height: 100vh;
+
+    }
+
+ 
+
+    h1 {
+
+      text-align: center;
+
+      margin: 16px 8px 4px;
+
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+
+      color: #333;
+
+    }
+
+ 
+
+    p {
+
+      font-family: Georgia, serif;
+
+      background-color: var(--light-gray-bg);
+
+      color: #222;
+
+      max-width: 800px;
+
+      margin: 16px auto;
+
+      line-height: 1.6;
+
+      padding: 12px 20px 24px;
+
+    }
+
+ 
+
+    #VR-scene {
+
+      max-width: 900px;
+
+      width: 100%;
+
+      margin: 0 auto 24px;
+
+      border: 2px solid #444;
+
+      border-radius: 8px;
+
+      overflow: hidden;
+
+      aspect-ratio: 3 / 2;
+
+      display: flex;
+
+    }
+
+ 
+
+    a-scene {
+
+      width: 100%;
+
+      height: 100%;
+
+    }
+
+ 
+
+    @media (max-width: 600px) {
+
+      #VR-scene {
+
+        border-width: 1px;
+
+        margin-bottom: 16px;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+ 
+
+<body>
+
+ 
+
+  <h1>Group 6 VR Experience</h1>
+
+  <p>A WebXR experience created in SEM 601 by Karina, Sebastian, and Fede.</p>
+
+  <div id="VR-scene">
+
+    <a-scene embedded
+
+      shadow="type: pcf"
+
+      renderer="antialias: true; colorManagement: false; exposure: 1.0; toneMapping: None"
+
+      xr-mode-ui="enabled: true"
+
+      webxr="optionalFeatures: hand-tracking, layers"
+
+      cursor="rayOrigin: mouse"
+
+      inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js"
+
+    >
+
+ 
+
+      <!-- ASSETS -->
+
+      <a-assets>
+
+        <!-- Mesh asset goes here -->
+	<a-asset-item id="village" src="https://sof-webxr-assets.s3.us-east-2.amazonaws.com/meshes/Group6.glb" crossorigin="anonymous"></a-asset-item>
+
+
+      </a-assets>
+
+ 
+
+      <!-- PLAYER -->
+
+      <a-entity id="rig"
+
+                movement-controls="speed: 0.15; constrainToNavMesh: true; controls: checkpoint, gamepad, trackpad, keyboard, nipple;"
+
+                position="0 0 3"
+
+                rotation="0 0 0"
+
+                checkpoint-controls gamepad-controls trackpad-controls keyboard-controls nipple-controls>
+
+        <a-entity id="head"
+
+                  camera
+
+                  look-controls="pointerLockEnabled: true"
+
+                  position="0 1.6 0">
+
+          <a-cursor material raycaster="objects: [data-raycastable]"></a-cursor>
+
+        </a-entity>
+
+      </a-entity>
+
+ 
+
+      <!-- ENVIRONMENT -->
+
+      <a-entity id="environment"
+
+                environment="skyType: gradient; skyColor: #8ab7c1; horizonColor: #526884; groundColor2: #0f241d; groundColor: #a08346; active: true; seed: 19; lightPosition: -0.11 0.16 0.33; fog: 0.67; flatShading: true; ground: canyon; groundYScale: 10; groundTexture: walkernoise; dressing: none"
+
+                position="-0.155 0 0">
+
+      </a-entity>
+
+       <!-- Village environment model -->
+      <a-entity gltf-model="#village" id="mainScene" position="0 0.01 0"></a-entity>
+
+    </a-scene>
+
+  </div>
+
+ 
+
+</body>
+
+</html>
