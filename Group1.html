@@ -1,39 +1,22 @@
 <!DOCTYPE html>
+<!-- Group 1: Summer, Constanza, Brian, gabrielle -->
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Group 1 — Full HTML Code</title>
-<style>
-body { margin: 24px; background: #fff; color: #222; font-family: system-ui, sans-serif; }
-button { padding: 10px 16px; margin: 0 8px 12px 0; cursor: pointer; }
-pre { padding: 20px; border: 1px solid #ccc; background: #f6f6f6; overflow: auto; tab-size: 2; }
-code { font-family: monospace; font-size: 13px; line-height: 1.5; }
-</style>
-</head>
-<body>
-<button id="copy" type="button">Copy all code</button>
-<button id="download" type="button">Download working HTML</button>
-<span id="status" role="status"></span>
-<pre><code id="source">&lt;!DOCTYPE html&gt;
-&lt;!-- Group 1: Summer, Constanza, Brian, gabrielle --&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-  &lt;meta charset=&quot;UTF-8&quot;&gt;
-  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
-  &lt;title&gt;Autumn Pumpkin Patch&lt;/title&gt;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autumn Pumpkin Patch</title>
 
-  &lt;!-- A‑Frame Core --&gt;
-  &lt;script src=&quot;https://aframe.io/releases/1.8.0/aframe.min.js&quot;&gt;&lt;/script&gt;
+  <!-- A‑Frame Core -->
+  <script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
 
-  &lt;!-- Extras: nav-mesh + teleport --&gt;
+  <!-- Extras: nav-mesh + teleport -->
 
 
-      &lt;!-- Environment component --&gt;
+      <!-- Environment component -->
 
 
 
-  &lt;style&gt;
+  <style>
     :root {
       --light-gray-bg: #f5f5f5;
     }
@@ -45,7 +28,7 @@ code { font-family: monospace; font-size: 13px; line-height: 1.5; }
     body {
       margin: 0;
       padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: #fff7e7;
       color: #222;
       display: flex;
@@ -92,609 +75,582 @@ code { font-family: monospace; font-size: 13px; line-height: 1.5; }
         margin-bottom: 16px;
       }
     }
-  &lt;/style&gt;
-&lt;/head&gt;
+  </style>
+</head>
 
-&lt;body&gt;
+<body>
 
-  &lt;h1&gt;Autumn Pumpkin Patch&lt;/h1&gt;
-  &lt;p&gt;Welcome to the pumpkin patch! Follow the garden path past our friendly scarecrow to the farmhouse. Drag to look around and use W, A, S, D or the arrow keys to explore. On a compatible headset, enter VR for a closer look.&lt;/p&gt;
-  &lt;div id=&quot;VR-scene&quot;&gt;
-    &lt;a-scene embedded
-      shadow=&quot;type: pcf&quot;
-      renderer=&quot;antialias: true; colorManagement: false; exposure: 1.0; toneMapping: None&quot;
-      xr-mode-ui=&quot;enabled: true&quot;
-      webxr=&quot;optionalFeatures: hand-tracking, layers&quot;
-      cursor=&quot;rayOrigin: mouse&quot;
-      inspector=&quot;url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js&quot;
-    &gt;
+  <h1>Autumn Pumpkin Patch</h1>
+  <p>Welcome to the pumpkin patch! Follow the garden path past our friendly scarecrow to the farmhouse. Drag to look around and use W, A, S, D or the arrow keys to explore. On a compatible headset, enter VR for a closer look.</p>
+  <div id="VR-scene">
+    <a-scene embedded
+      shadow="type: pcf"
+      renderer="antialias: true; colorManagement: false; exposure: 1.0; toneMapping: None"
+      xr-mode-ui="enabled: true"
+      webxr="optionalFeatures: hand-tracking, layers"
+      cursor="rayOrigin: mouse"
+      inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js"
+    >
 
-      &lt;a-entity id=&quot;rig&quot; position=&quot;0 0 9&quot;&gt;&lt;a-camera position=&quot;0 1.7 0&quot; wasd-controls=&quot;acceleration: 14&quot; look-controls=&quot;pointerLockEnabled: false&quot;&gt;&lt;/a-camera&gt;&lt;/a-entity&gt;
-      &lt;a-sky color=&quot;#efc995&quot;&gt;&lt;/a-sky&gt;
-      &lt;a-entity light=&quot;type: ambient; color: #ffe5bc; intensity: 0.8&quot;&gt;&lt;/a-entity&gt;
-      &lt;a-entity light=&quot;type: directional; color: #ffcf86; intensity: 2; castShadow: true; shadowCameraLeft: -16; shadowCameraRight: 16; shadowCameraTop: 16; shadowCameraBottom: -16&quot; position=&quot;-7 12 6&quot;&gt;&lt;/a-entity&gt;
-      &lt;a-plane rotation=&quot;-90 0 0&quot; width=&quot;200&quot; height=&quot;200&quot; color=&quot;#8a9150&quot; shadow=&quot;receive: true&quot;&gt;&lt;/a-plane&gt;
-      &lt;a-plane position=&quot;0 0.012 -1&quot; rotation=&quot;-90 0 0&quot; width=&quot;14&quot; height=&quot;16&quot; color=&quot;#70462d&quot; shadow=&quot;receive: true&quot;&gt;&lt;/a-plane&gt;
-      &lt;a-plane position=&quot;0 0.025 0&quot; rotation=&quot;-90 0 0&quot; width=&quot;2.4&quot; height=&quot;18&quot; color=&quot;#c7a16a&quot;&gt;&lt;/a-plane&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;-5.699999999999999 0.06 4.0&quot; scale=&quot;0.74 0.74 0.74&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;-3.8 0.06 4.0&quot; scale=&quot;0.8300000000000001 0.8300000000000001 0.8300000000000001&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;-1.9 0.06 4.0&quot; scale=&quot;0.92 0.92 0.92&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;1.9 0.06 4.0&quot; scale=&quot;0.74 0.74 0.74&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;3.8 0.06 4.0&quot; scale=&quot;0.8300000000000001 0.8300000000000001 0.8300000000000001&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;5.699999999999999 0.06 4.0&quot; scale=&quot;0.92 0.92 0.92&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;-5.699999999999999 0.06 1.5&quot; scale=&quot;0.65 0.65 0.65&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;-3.8 0.06 1.5&quot; scale=&quot;0.74 0.74 0.74&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;-1.9 0.06 1.5&quot; scale=&quot;0.8300000000000001 0.8300000000000001 0.8300000000000001&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;1.9 0.06 1.5&quot; scale=&quot;0.65 0.65 0.65&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;3.8 0.06 1.5&quot; scale=&quot;0.74 0.74 0.74&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;5.699999999999999 0.06 1.5&quot; scale=&quot;0.8300000000000001 0.8300000000000001 0.8300000000000001&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;-5.699999999999999 0.06 -1.0&quot; scale=&quot;0.92 0.92 0.92&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;-3.8 0.06 -1.0&quot; scale=&quot;0.65 0.65 0.65&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;-1.9 0.06 -1.0&quot; scale=&quot;0.74 0.74 0.74&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;1.9 0.06 -1.0&quot; scale=&quot;0.92 0.92 0.92&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;3.8 0.06 -1.0&quot; scale=&quot;0.65 0.65 0.65&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;5.699999999999999 0.06 -1.0&quot; scale=&quot;0.74 0.74 0.74&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;-5.699999999999999 0.06 -3.5&quot; scale=&quot;0.8300000000000001 0.8300000000000001 0.8300000000000001&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;-3.8 0.06 -3.5&quot; scale=&quot;0.92 0.92 0.92&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;-1.9 0.06 -3.5&quot; scale=&quot;0.65 0.65 0.65&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;1.9 0.06 -3.5&quot; scale=&quot;0.8300000000000001 0.8300000000000001 0.8300000000000001&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;3.8 0.06 -3.5&quot; scale=&quot;0.92 0.92 0.92&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;5.699999999999999 0.06 -3.5&quot; scale=&quot;0.65 0.65 0.65&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;-5.699999999999999 0.06 -6.0&quot; scale=&quot;0.74 0.74 0.74&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;-3.8 0.06 -6.0&quot; scale=&quot;0.8300000000000001 0.8300000000000001 0.8300000000000001&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;-1.9 0.06 -6.0&quot; scale=&quot;0.92 0.92 0.92&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;1.9 0.06 -6.0&quot; scale=&quot;0.74 0.74 0.74&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;3.8 0.06 -6.0&quot; scale=&quot;0.8300000000000001 0.8300000000000001 0.8300000000000001&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity class=&quot;pumpkin&quot; position=&quot;5.699999999999999 0.06 -6.0&quot; scale=&quot;0.92 0.92 0.92&quot;&gt;
-      &lt;a-sphere position=&quot;0.290 .44 0.000&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.273 .44 -0.099&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.145 .44 -0.251&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#e87817&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.050 .44 -0.286&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#d9680c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.222 .44 -0.186&quot; radius=&quot;.42&quot; scale=&quot;.85 1 .85&quot; color=&quot;#f28a1c&quot; segments-width=&quot;12&quot; segments-height=&quot;10&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;0 .92 0&quot; radius=&quot;.085&quot; height=&quot;.30&quot; rotation=&quot;0 0 -18&quot; color=&quot;#536232&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;.23 .85 0&quot; radius=&quot;.18&quot; scale=&quot;1 .15 .5&quot; rotation=&quot;0 0 15&quot; color=&quot;#677c35&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-&lt;a-entity id=&quot;scarecrow&quot; position=&quot;0 0 -5.8&quot;&gt;
-      &lt;a-cylinder position=&quot;0 1.65 0&quot; height=&quot;3.3&quot; radius=&quot;.09&quot; color=&quot;#74502c&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-box position=&quot;0 2.3 0&quot; width=&quot;2.9&quot; height=&quot;.12&quot; depth=&quot;.12&quot; color=&quot;#74502c&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;0 1.98 .08&quot; width=&quot;.78&quot; height=&quot;.95&quot; depth=&quot;.42&quot; rotation=&quot;0 0 -4&quot; color=&quot;#bb6339&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-cylinder position=&quot;-0.92 2.3 .08&quot; height=&quot;1.15&quot; radius=&quot;.17&quot; rotation=&quot;0 0 -80&quot; color=&quot;#bb6339&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-box position=&quot;-0.23 1.11 .1&quot; width=&quot;.32&quot; height=&quot;.88&quot; depth=&quot;.36&quot; rotation=&quot;0 0 -8&quot; color=&quot;#526a77&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-cylinder position=&quot;-1.48 2.22 .08&quot; radius=&quot;.014&quot; height=&quot;.42&quot; rotation=&quot;0 0 70&quot; color=&quot;#e7c778&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-cylinder position=&quot;-0.36 .63 .1&quot; radius=&quot;.014&quot; height=&quot;.3&quot; rotation=&quot;0 0 -16&quot; color=&quot;#e7c778&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-cylinder position=&quot;-1.4949999999999999 2.2550000000000003 .08&quot; radius=&quot;.014&quot; height=&quot;.42&quot; rotation=&quot;0 0 80&quot; color=&quot;#e7c778&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-cylinder position=&quot;-0.305 .63 .1&quot; radius=&quot;.014&quot; height=&quot;.3&quot; rotation=&quot;0 0 -8&quot; color=&quot;#e7c778&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-cylinder position=&quot;-1.51 2.29 .08&quot; radius=&quot;.014&quot; height=&quot;.42&quot; rotation=&quot;0 0 90&quot; color=&quot;#e7c778&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-cylinder position=&quot;-0.25 .63 .1&quot; radius=&quot;.014&quot; height=&quot;.3&quot; rotation=&quot;0 0 0&quot; color=&quot;#e7c778&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-cylinder position=&quot;-1.525 2.325 .08&quot; radius=&quot;.014&quot; height=&quot;.42&quot; rotation=&quot;0 0 100&quot; color=&quot;#e7c778&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-cylinder position=&quot;-0.195 .63 .1&quot; radius=&quot;.014&quot; height=&quot;.3&quot; rotation=&quot;0 0 8&quot; color=&quot;#e7c778&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-cylinder position=&quot;-1.54 2.3600000000000003 .08&quot; radius=&quot;.014&quot; height=&quot;.42&quot; rotation=&quot;0 0 110&quot; color=&quot;#e7c778&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-cylinder position=&quot;-0.14 .63 .1&quot; radius=&quot;.014&quot; height=&quot;.3&quot; rotation=&quot;0 0 16&quot; color=&quot;#e7c778&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-cylinder position=&quot;0.92 2.3 .08&quot; height=&quot;1.15&quot; radius=&quot;.17&quot; rotation=&quot;0 0 80&quot; color=&quot;#bb6339&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-box position=&quot;0.23 1.11 .1&quot; width=&quot;.32&quot; height=&quot;.88&quot; depth=&quot;.36&quot; rotation=&quot;0 0 8&quot; color=&quot;#526a77&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-cylinder position=&quot;1.48 2.22 .08&quot; radius=&quot;.014&quot; height=&quot;.42&quot; rotation=&quot;0 0 70&quot; color=&quot;#e7c778&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-cylinder position=&quot;0.14 .63 .1&quot; radius=&quot;.014&quot; height=&quot;.3&quot; rotation=&quot;0 0 -16&quot; color=&quot;#e7c778&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-cylinder position=&quot;1.4949999999999999 2.2550000000000003 .08&quot; radius=&quot;.014&quot; height=&quot;.42&quot; rotation=&quot;0 0 80&quot; color=&quot;#e7c778&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-cylinder position=&quot;0.195 .63 .1&quot; radius=&quot;.014&quot; height=&quot;.3&quot; rotation=&quot;0 0 -8&quot; color=&quot;#e7c778&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-cylinder position=&quot;1.51 2.29 .08&quot; radius=&quot;.014&quot; height=&quot;.42&quot; rotation=&quot;0 0 90&quot; color=&quot;#e7c778&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-cylinder position=&quot;0.25 .63 .1&quot; radius=&quot;.014&quot; height=&quot;.3&quot; rotation=&quot;0 0 0&quot; color=&quot;#e7c778&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-cylinder position=&quot;1.525 2.325 .08&quot; radius=&quot;.014&quot; height=&quot;.42&quot; rotation=&quot;0 0 100&quot; color=&quot;#e7c778&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-cylinder position=&quot;0.305 .63 .1&quot; radius=&quot;.014&quot; height=&quot;.3&quot; rotation=&quot;0 0 8&quot; color=&quot;#e7c778&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-cylinder position=&quot;1.54 2.3600000000000003 .08&quot; radius=&quot;.014&quot; height=&quot;.42&quot; rotation=&quot;0 0 110&quot; color=&quot;#e7c778&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-cylinder position=&quot;0.36 .63 .1&quot; radius=&quot;.014&quot; height=&quot;.3&quot; rotation=&quot;0 0 16&quot; color=&quot;#e7c778&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;0 2.94 .1&quot; radius=&quot;.39&quot; scale=&quot;1 1.06 .9&quot; color=&quot;#e5c58a&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-0.13 3.01 .426&quot; radius=&quot;.042&quot; color=&quot;#352e24&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0.13 3.01 .426&quot; radius=&quot;.042&quot; color=&quot;#352e24&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cone position=&quot;0 2.9 .47&quot; radius-bottom=&quot;.075&quot; radius-top=&quot;0&quot; height=&quot;.16&quot; rotation=&quot;90 0 0&quot; color=&quot;#bd723d&quot;&gt;&lt;/a-cone&gt;
-      &lt;a-box position=&quot;-0.16 2.82 .431&quot; width=&quot;.048&quot; height=&quot;.018&quot; depth=&quot;.016&quot; rotation=&quot;0 0 -20.8&quot; color=&quot;#513c2c&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;-0.08 2.78 .431&quot; width=&quot;.048&quot; height=&quot;.018&quot; depth=&quot;.016&quot; rotation=&quot;0 0 -10.4&quot; color=&quot;#513c2c&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;0 2.77 .431&quot; width=&quot;.048&quot; height=&quot;.018&quot; depth=&quot;.016&quot; rotation=&quot;0 0 0&quot; color=&quot;#513c2c&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;0.08 2.78 .431&quot; width=&quot;.048&quot; height=&quot;.018&quot; depth=&quot;.016&quot; rotation=&quot;0 0 10.4&quot; color=&quot;#513c2c&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;0.16 2.82 .431&quot; width=&quot;.048&quot; height=&quot;.018&quot; depth=&quot;.016&quot; rotation=&quot;0 0 20.8&quot; color=&quot;#513c2c&quot;&gt;&lt;/a-box&gt;
-      &lt;a-cylinder position=&quot;0 3.27 .1&quot; radius=&quot;.59&quot; height=&quot;.065&quot; color=&quot;#876132&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-cone position=&quot;0 3.53 .1&quot; radius-bottom=&quot;.34&quot; radius-top=&quot;.10&quot; height=&quot;.5&quot; color=&quot;#ac8145&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-cone&gt;
-      &lt;a-cylinder position=&quot;0 3.33 .1&quot; radius=&quot;.33&quot; height=&quot;.10&quot; color=&quot;#704431&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-box position=&quot;0 2.56 .12&quot; width=&quot;.55&quot; height=&quot;.14&quot; depth=&quot;.49&quot; color=&quot;#d8ad45&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;.17 2.34 .34&quot; width=&quot;.16&quot; height=&quot;.42&quot; depth=&quot;.045&quot; rotation=&quot;0 0 -15&quot; color=&quot;#d8ad45&quot;&gt;&lt;/a-box&gt;
-      &lt;a-sphere position=&quot;0 1.83 .31&quot; radius=&quot;.035&quot; color=&quot;#e8cf91&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0 2.04 .31&quot; radius=&quot;.035&quot; color=&quot;#e8cf91&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;0 2.23 .31&quot; radius=&quot;.035&quot; color=&quot;#e8cf91&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-box position=&quot;-.24 1.99 .31&quot; width=&quot;.19&quot; height=&quot;.21&quot; depth=&quot;.02&quot; rotation=&quot;0 0 12&quot; color=&quot;#d7a75c&quot;&gt;&lt;/a-box&gt;
-&lt;/a-entity&gt;
-      &lt;a-box position=&quot;-8 .65 -9&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;-6 .65 -9&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;-4 .65 -9&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;-2 .65 -9&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;0 .65 -9&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;2 .65 -9&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;4 .65 -9&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;6 .65 -9&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;8 .65 -9&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;0 0.43 -9&quot; width=&quot;16&quot; height=&quot;.13&quot; depth=&quot;.10&quot; color=&quot;#bc9158&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;0 0.94 -9&quot; width=&quot;16&quot; height=&quot;.13&quot; depth=&quot;.10&quot; color=&quot;#bc9158&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;-8 .65 -7&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;-8 .65 -5&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;-8 .65 -3&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;-8 .65 -1&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;-8 .65 1&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;-8 .65 3&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;-8 .65 5&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;-8 .65 7&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;-8 0.43 -1&quot; width=&quot;.10&quot; height=&quot;.13&quot; depth=&quot;16&quot; color=&quot;#bc9158&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;-8 0.94 -1&quot; width=&quot;.10&quot; height=&quot;.13&quot; depth=&quot;16&quot; color=&quot;#bc9158&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;8 .65 -7&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;8 .65 -5&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;8 .65 -3&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;8 .65 -1&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;8 .65 1&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;8 .65 3&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;8 .65 5&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;8 .65 7&quot; width=&quot;.15&quot; height=&quot;1.3&quot; depth=&quot;.15&quot; color=&quot;#c29a63&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;8 0.43 -1&quot; width=&quot;.10&quot; height=&quot;.13&quot; depth=&quot;16&quot; color=&quot;#bc9158&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;8 0.94 -1&quot; width=&quot;.10&quot; height=&quot;.13&quot; depth=&quot;16&quot; color=&quot;#bc9158&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;-2 .38 -7&quot; width=&quot;1.2&quot; height=&quot;.75&quot; depth=&quot;.8&quot; color=&quot;#ceaa50&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;-2.36 .39 -7&quot; width=&quot;.045&quot; height=&quot;.77&quot; depth=&quot;.82&quot; color=&quot;#a17c36&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;-1.6400000000000001 .39 -7&quot; width=&quot;.045&quot; height=&quot;.77&quot; depth=&quot;.82&quot; color=&quot;#a17c36&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;2 .38 -7&quot; width=&quot;1.2&quot; height=&quot;.75&quot; depth=&quot;.8&quot; color=&quot;#ceaa50&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;1.6400000000000001 .39 -7&quot; width=&quot;.045&quot; height=&quot;.77&quot; depth=&quot;.82&quot; color=&quot;#a17c36&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;2.36 .39 -7&quot; width=&quot;.045&quot; height=&quot;.77&quot; depth=&quot;.82&quot; color=&quot;#a17c36&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;3 .38 -7.2&quot; width=&quot;1.2&quot; height=&quot;.75&quot; depth=&quot;.8&quot; color=&quot;#ceaa50&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;2.64 .39 -7.2&quot; width=&quot;.045&quot; height=&quot;.77&quot; depth=&quot;.82&quot; color=&quot;#a17c36&quot;&gt;&lt;/a-box&gt;
-      &lt;a-box position=&quot;3.36 .39 -7.2&quot; width=&quot;.045&quot; height=&quot;.77&quot; depth=&quot;.82&quot; color=&quot;#a17c36&quot;&gt;&lt;/a-box&gt;
-      &lt;a-cylinder position=&quot;-2 0.7 6.3&quot; radius=&quot;.065&quot; height=&quot;1.4&quot; color=&quot;#775231&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-box position=&quot;-2 1.35 6.3&quot; width=&quot;1.65&quot; height=&quot;.65&quot; depth=&quot;.12&quot; color=&quot;#785333&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-      &lt;a-text value=&quot;PUMPKIN PATCH&quot; position=&quot;-2 1.44 6.37&quot; align=&quot;center&quot; width=&quot;1.5&quot; color=&quot;#fff1cc&quot;&gt;&lt;/a-text&gt;
-      &lt;a-text value=&quot;Welcome, wanderer!&quot; position=&quot;-2 1.20 6.37&quot; align=&quot;center&quot; width=&quot;1.3&quot; color=&quot;#eacb8d&quot;&gt;&lt;/a-text&gt;
-      &lt;a-cylinder position=&quot;-11 1.8 -10&quot; radius=&quot;.27&quot; height=&quot;3.6&quot; color=&quot;#755030&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;-11.7 3.5 -10&quot; radius=&quot;1.5&quot; segments-width=&quot;9&quot; segments-height=&quot;6&quot; color=&quot;#b96328&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-10.3 3.65 -10&quot; radius=&quot;1.5&quot; segments-width=&quot;9&quot; segments-height=&quot;6&quot; color=&quot;#b96328&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-11 4.35 -10&quot; radius=&quot;1.5&quot; segments-width=&quot;9&quot; segments-height=&quot;6&quot; color=&quot;#a74b26&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;11 1.8 -12&quot; radius=&quot;.27&quot; height=&quot;3.6&quot; color=&quot;#755030&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;10.3 3.5 -12&quot; radius=&quot;1.5&quot; segments-width=&quot;9&quot; segments-height=&quot;6&quot; color=&quot;#b96328&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;11.7 3.65 -12&quot; radius=&quot;1.5&quot; segments-width=&quot;9&quot; segments-height=&quot;6&quot; color=&quot;#b96328&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;11 4.35 -12&quot; radius=&quot;1.5&quot; segments-width=&quot;9&quot; segments-height=&quot;6&quot; color=&quot;#a74b26&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;-13 1.8 1&quot; radius=&quot;.27&quot; height=&quot;3.6&quot; color=&quot;#755030&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;-13.7 3.5 1&quot; radius=&quot;1.5&quot; segments-width=&quot;9&quot; segments-height=&quot;6&quot; color=&quot;#b96328&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-12.3 3.65 1&quot; radius=&quot;1.5&quot; segments-width=&quot;9&quot; segments-height=&quot;6&quot; color=&quot;#b96328&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;-13 4.35 1&quot; radius=&quot;1.5&quot; segments-width=&quot;9&quot; segments-height=&quot;6&quot; color=&quot;#a74b26&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-cylinder position=&quot;13 1.8 -3&quot; radius=&quot;.27&quot; height=&quot;3.6&quot; color=&quot;#755030&quot;&gt;&lt;/a-cylinder&gt;
-      &lt;a-sphere position=&quot;12.3 3.5 -3&quot; radius=&quot;1.5&quot; segments-width=&quot;9&quot; segments-height=&quot;6&quot; color=&quot;#b96328&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;13.7 3.65 -3&quot; radius=&quot;1.5&quot; segments-width=&quot;9&quot; segments-height=&quot;6&quot; color=&quot;#b96328&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-sphere&gt;
-      &lt;a-sphere position=&quot;13 4.35 -3&quot; radius=&quot;1.5&quot; segments-width=&quot;9&quot; segments-height=&quot;6&quot; color=&quot;#a74b26&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-sphere&gt;
-&lt;!-- Farmhouse --&gt;
-&lt;a-entity id=&quot;farmhouse&quot; position=&quot;-4 0 -13&quot;&gt;
-&lt;a-box position=&quot;0 1.65 0&quot; width=&quot;5.5&quot; height=&quot;3.3&quot; depth=&quot;3.8&quot; color=&quot;#efe0bf&quot; shadow=&quot;cast: true; receive: true&quot;&gt;&lt;/a-box&gt;
-&lt;a-entity position=&quot;0 3.28 0&quot; geometry=&quot;primitive: triangle; vertexA: -2.75 0 0; vertexB: 2.75 0 0; vertexC: 0 1.55 0&quot; material=&quot;color: #dcc79f; side: double&quot;&gt;&lt;/a-entity&gt;
-&lt;a-triangle position=&quot;0 3.28 -1.91&quot; vertex-a=&quot;-2.75 0 0&quot; vertex-b=&quot;2.75 0 0&quot; vertex-c=&quot;0 1.55 0&quot; color=&quot;#efe0bf&quot; material=&quot;side: double&quot;&gt;&lt;/a-triangle&gt;
-&lt;a-triangle position=&quot;0 3.28 1.91&quot; vertex-a=&quot;-2.75 0 0&quot; vertex-b=&quot;2.75 0 0&quot; vertex-c=&quot;0 1.55 0&quot; color=&quot;#efe0bf&quot; material=&quot;side: double&quot;&gt;&lt;/a-triangle&gt;
-&lt;a-box position=&quot;-1.5 4.0 0&quot; rotation=&quot;0 0 29.4&quot; width=&quot;3.45&quot; height=&quot;.16&quot; depth=&quot;4.5&quot; color=&quot;#765049&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-&lt;a-box position=&quot;1.5 4.0 0&quot; rotation=&quot;0 0 -29.4&quot; width=&quot;3.45&quot; height=&quot;.16&quot; depth=&quot;4.5&quot; color=&quot;#765049&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-&lt;a-box position=&quot;1.6 4.45 -.65&quot; width=&quot;.55&quot; height=&quot;1.6&quot; depth=&quot;.6&quot; color=&quot;#a2674d&quot; shadow=&quot;cast: true&quot;&gt;&lt;/a-box&gt;
-&lt;a-box position=&quot;0 1.06 1.93&quot; width=&quot;.9&quot; height=&quot;2.1&quot; depth=&quot;.09&quot; color=&quot;#637b68&quot;&gt;&lt;/a-box&gt;
-&lt;a-sphere position=&quot;.29 1.02 2&quot; radius=&quot;.055&quot; color=&quot;#eac875&quot;&gt;&lt;/a-sphere&gt;
-&lt;a-box position=&quot;-1.75 1.92 1.95&quot; width=&quot;1.13&quot; height=&quot;1.26&quot; depth=&quot;.1&quot; color=&quot;#faf0d8&quot;&gt;&lt;/a-box&gt;
-&lt;a-box position=&quot;-1.75 1.92 2.01&quot; width=&quot;.92&quot; height=&quot;1.05&quot; depth=&quot;.025&quot; color=&quot;#a5cbd0&quot;&gt;&lt;/a-box&gt;
-&lt;a-box position=&quot;-2.45 1.92 1.97&quot; width=&quot;.22&quot; height=&quot;1.25&quot; depth=&quot;.1&quot; color=&quot;#637b68&quot;&gt;&lt;/a-box&gt;
-&lt;a-box position=&quot;-1.05 1.92 1.97&quot; width=&quot;.22&quot; height=&quot;1.25&quot; depth=&quot;.1&quot; color=&quot;#637b68&quot;&gt;&lt;/a-box&gt;
-&lt;a-box position=&quot;-1.75 1.92 2.04&quot; width=&quot;.05&quot; height=&quot;1.08&quot; depth=&quot;.025&quot; color=&quot;#fff0d4&quot;&gt;&lt;/a-box&gt;
-&lt;a-box position=&quot;-1.75 1.92 2.04&quot; width=&quot;.95&quot; height=&quot;.05&quot; depth=&quot;.025&quot; color=&quot;#fff0d4&quot;&gt;&lt;/a-box&gt;
-&lt;a-box position=&quot;1.75 1.92 1.95&quot; width=&quot;1.13&quot; height=&quot;1.26&quot; depth=&quot;.1&quot; color=&quot;#faf0d8&quot;&gt;&lt;/a-box&gt;
-&lt;a-box position=&quot;1.75 1.92 2.01&quot; width=&quot;.92&quot; height=&quot;1.05&quot; depth=&quot;.025&quot; color=&quot;#a5cbd0&quot;&gt;&lt;/a-box&gt;
-&lt;a-box position=&quot;1.05 1.92 1.97&quot; width=&quot;.22&quot; height=&quot;1.25&quot; depth=&quot;.1&quot; color=&quot;#637b68&quot;&gt;&lt;/a-box&gt;
-&lt;a-box position=&quot;2.45 1.92 1.97&quot; width=&quot;.22&quot; height=&quot;1.25&quot; depth=&quot;.1&quot; color=&quot;#637b68&quot;&gt;&lt;/a-box&gt;
-&lt;a-box position=&quot;1.75 1.92 2.04&quot; width=&quot;.05&quot; height=&quot;1.08&quot; depth=&quot;.025&quot; color=&quot;#fff0d4&quot;&gt;&lt;/a-box&gt;
-&lt;a-box position=&quot;1.75 1.92 2.04&quot; width=&quot;.95&quot; height=&quot;.05&quot; depth=&quot;.025&quot; color=&quot;#fff0d4&quot;&gt;&lt;/a-box&gt;
-&lt;a-box position=&quot;0 .12 2.55&quot; width=&quot;3.5&quot; height=&quot;.24&quot; depth=&quot;1.4&quot; color=&quot;#ab9471&quot;&gt;&lt;/a-box&gt;
-&lt;/a-entity&gt;
-&lt;!-- Friendly black cat beside the entrance --&gt;
-&lt;a-entity id=&quot;patch-cat&quot; position=&quot;1.65 0 5.8&quot; rotation=&quot;0 -15 0&quot; shadow=&quot;cast: true&quot;&gt;
-&lt;a-sphere position=&quot;0 .39 0&quot; radius=&quot;.3&quot; scale=&quot;1 1.3 .85&quot; color=&quot;#292632&quot;&gt;&lt;/a-sphere&gt;
-&lt;a-sphere position=&quot;-0.15 .09 .18&quot; radius=&quot;.12&quot; scale=&quot;.85 .7 1.4&quot; color=&quot;#292632&quot;&gt;&lt;/a-sphere&gt;
-&lt;a-sphere position=&quot;0.15 .09 .18&quot; radius=&quot;.12&quot; scale=&quot;.85 .7 1.4&quot; color=&quot;#292632&quot;&gt;&lt;/a-sphere&gt;
-&lt;a-sphere position=&quot;0 .8 .1&quot; radius=&quot;.25&quot; scale=&quot;1 1 .9&quot; color=&quot;#302b38&quot;&gt;&lt;/a-sphere&gt;
-&lt;a-cone position=&quot;-0.16 1.04 .08&quot; radius-bottom=&quot;.12&quot; radius-top=&quot;0&quot; height=&quot;.3&quot; scale=&quot;1 1 .65&quot; color=&quot;#292632&quot;&gt;&lt;/a-cone&gt;
-&lt;a-triangle position=&quot;-0.16 1.045 .155&quot; vertex-a=&quot;-.055 -.07 0&quot; vertex-b=&quot;.055 -.07 0&quot; vertex-c=&quot;0 .09 0&quot; color=&quot;#bd8586&quot; material=&quot;side: double&quot;&gt;&lt;/a-triangle&gt;
-&lt;a-cone position=&quot;0.16 1.04 .08&quot; radius-bottom=&quot;.12&quot; radius-top=&quot;0&quot; height=&quot;.3&quot; scale=&quot;1 1 .65&quot; color=&quot;#292632&quot;&gt;&lt;/a-cone&gt;
-&lt;a-triangle position=&quot;0.16 1.045 .155&quot; vertex-a=&quot;-.055 -.07 0&quot; vertex-b=&quot;.055 -.07 0&quot; vertex-c=&quot;0 .09 0&quot; color=&quot;#bd8586&quot; material=&quot;side: double&quot;&gt;&lt;/a-triangle&gt;
-&lt;a-sphere position=&quot;-0.095 .835 .305&quot; radius=&quot;.059&quot; scale=&quot;1 .82 .35&quot; color=&quot;#d7cf61&quot;&gt;&lt;/a-sphere&gt;
-&lt;a-sphere position=&quot;-0.095 .835 .325&quot; radius=&quot;.042&quot; scale=&quot;.25 1 .25&quot; color=&quot;#17151c&quot;&gt;&lt;/a-sphere&gt;
-&lt;a-sphere position=&quot;0.095 .835 .305&quot; radius=&quot;.059&quot; scale=&quot;1 .82 .35&quot; color=&quot;#d7cf61&quot;&gt;&lt;/a-sphere&gt;
-&lt;a-sphere position=&quot;0.095 .835 .325&quot; radius=&quot;.042&quot; scale=&quot;.25 1 .25&quot; color=&quot;#17151c&quot;&gt;&lt;/a-sphere&gt;
-&lt;a-sphere position=&quot;0 .749 .331&quot; radius=&quot;.033&quot; scale=&quot;1 .7 .5&quot; color=&quot;#c88d91&quot;&gt;&lt;/a-sphere&gt;
-&lt;a-entity line=&quot;start: -0.055 .72 .32; end: -0.33 0.67 .32; color: #d7c8b9&quot;&gt;&lt;/a-entity&gt;
-&lt;a-entity line=&quot;start: -0.055 .72 .32; end: -0.33 0.7200000000000001 .32; color: #d7c8b9&quot;&gt;&lt;/a-entity&gt;
-&lt;a-entity line=&quot;start: -0.055 .72 .32; end: -0.33 0.77 .32; color: #d7c8b9&quot;&gt;&lt;/a-entity&gt;
-&lt;a-entity line=&quot;start: 0.055 .72 .32; end: 0.33 0.67 .32; color: #d7c8b9&quot;&gt;&lt;/a-entity&gt;
-&lt;a-entity line=&quot;start: 0.055 .72 .32; end: 0.33 0.7200000000000001 .32; color: #d7c8b9&quot;&gt;&lt;/a-entity&gt;
-&lt;a-entity line=&quot;start: 0.055 .72 .32; end: 0.33 0.77 .32; color: #d7c8b9&quot;&gt;&lt;/a-entity&gt;
-&lt;a-cylinder position=&quot;0.28 0.225 -0.175&quot; height=&quot;0.219928556845359&quot; radius=&quot;.055&quot; rotation=&quot;0 0 -72.64597536373867&quot; color=&quot;#292632&quot;&gt;&lt;/a-cylinder&gt;
-&lt;a-cylinder position=&quot;0.42 0.325 -0.21000000000000002&quot; height=&quot;0.23813207915827966&quot; radius=&quot;.055&quot; rotation=&quot;0 0 -38.65980825409008&quot; color=&quot;#292632&quot;&gt;&lt;/a-cylinder&gt;
-&lt;a-cylinder position=&quot;0.505 0.495 -0.22&quot; height=&quot;0.24146882704388495&quot; radius=&quot;.055&quot; rotation=&quot;0 0 -14.743562836470751&quot; color=&quot;#292632&quot;&gt;&lt;/a-cylinder&gt;
-&lt;a-cylinder position=&quot;0.525 0.6799999999999999 -0.215&quot; height=&quot;0.22555470085267793&quot; radius=&quot;.055&quot; rotation=&quot;0 0 3.1798301198642362&quot; color=&quot;#292632&quot;&gt;&lt;/a-cylinder&gt;
-&lt;a-cylinder position=&quot;0.485 0.825 -0.20500000000000002&quot; height=&quot;0.17576696830622018&quot; radius=&quot;.055&quot; rotation=&quot;0 0 32.4711922908485&quot; color=&quot;#292632&quot;&gt;&lt;/a-cylinder&gt;
-&lt;a-sphere position=&quot;.45 .88 -.2&quot; radius=&quot;.057&quot; color=&quot;#292632&quot;&gt;&lt;/a-sphere&gt;
-&lt;/a-entity&gt;
-    &lt;/a-scene&gt;
-  &lt;/div&gt;
+      <a-entity id="rig" position="0 0 9"><a-camera position="0 1.7 0" wasd-controls="acceleration: 14" look-controls="pointerLockEnabled: false"></a-camera></a-entity>
+      <a-sky color="#efc995"></a-sky>
+      <a-entity light="type: ambient; color: #ffe5bc; intensity: 0.8"></a-entity>
+      <a-entity light="type: directional; color: #ffcf86; intensity: 2; castShadow: true; shadowCameraLeft: -16; shadowCameraRight: 16; shadowCameraTop: 16; shadowCameraBottom: -16" position="-7 12 6"></a-entity>
+      <a-plane rotation="-90 0 0" width="200" height="200" color="#8a9150" shadow="receive: true"></a-plane>
+      <a-plane position="0 0.012 -1" rotation="-90 0 0" width="14" height="16" color="#70462d" shadow="receive: true"></a-plane>
+      <a-plane position="0 0.025 0" rotation="-90 0 0" width="2.4" height="18" color="#c7a16a"></a-plane>
+<a-entity class="pumpkin" position="-5.699999999999999 0.06 4.0" scale="0.74 0.74 0.74">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="-3.8 0.06 4.0" scale="0.8300000000000001 0.8300000000000001 0.8300000000000001">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="-1.9 0.06 4.0" scale="0.92 0.92 0.92">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="1.9 0.06 4.0" scale="0.74 0.74 0.74">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="3.8 0.06 4.0" scale="0.8300000000000001 0.8300000000000001 0.8300000000000001">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="5.699999999999999 0.06 4.0" scale="0.92 0.92 0.92">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="-5.699999999999999 0.06 1.5" scale="0.65 0.65 0.65">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="-3.8 0.06 1.5" scale="0.74 0.74 0.74">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="-1.9 0.06 1.5" scale="0.8300000000000001 0.8300000000000001 0.8300000000000001">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="1.9 0.06 1.5" scale="0.65 0.65 0.65">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="3.8 0.06 1.5" scale="0.74 0.74 0.74">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="5.699999999999999 0.06 1.5" scale="0.8300000000000001 0.8300000000000001 0.8300000000000001">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="-5.699999999999999 0.06 -1.0" scale="0.92 0.92 0.92">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="-3.8 0.06 -1.0" scale="0.65 0.65 0.65">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="-1.9 0.06 -1.0" scale="0.74 0.74 0.74">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="1.9 0.06 -1.0" scale="0.92 0.92 0.92">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="3.8 0.06 -1.0" scale="0.65 0.65 0.65">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="5.699999999999999 0.06 -1.0" scale="0.74 0.74 0.74">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="-5.699999999999999 0.06 -3.5" scale="0.8300000000000001 0.8300000000000001 0.8300000000000001">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="-3.8 0.06 -3.5" scale="0.92 0.92 0.92">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="-1.9 0.06 -3.5" scale="0.65 0.65 0.65">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="1.9 0.06 -3.5" scale="0.8300000000000001 0.8300000000000001 0.8300000000000001">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="3.8 0.06 -3.5" scale="0.92 0.92 0.92">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="5.699999999999999 0.06 -3.5" scale="0.65 0.65 0.65">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="-5.699999999999999 0.06 -6.0" scale="0.74 0.74 0.74">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="-3.8 0.06 -6.0" scale="0.8300000000000001 0.8300000000000001 0.8300000000000001">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="-1.9 0.06 -6.0" scale="0.92 0.92 0.92">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="1.9 0.06 -6.0" scale="0.74 0.74 0.74">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="3.8 0.06 -6.0" scale="0.8300000000000001 0.8300000000000001 0.8300000000000001">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity class="pumpkin" position="5.699999999999999 0.06 -6.0" scale="0.92 0.92 0.92">
+      <a-sphere position="0.290 .44 0.000" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 0.186" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 0.286" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 0.099" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.273 .44 -0.099" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="-0.145 .44 -0.251" radius=".42" scale=".85 1 .85" color="#e87817" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.050 .44 -0.286" radius=".42" scale=".85 1 .85" color="#d9680c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-sphere position="0.222 .44 -0.186" radius=".42" scale=".85 1 .85" color="#f28a1c" segments-width="12" segments-height="10" shadow="cast: true; receive: true"></a-sphere>
+      <a-cylinder position="0 .92 0" radius=".085" height=".30" rotation="0 0 -18" color="#536232" shadow="cast: true"></a-cylinder>
+      <a-sphere position=".23 .85 0" radius=".18" scale="1 .15 .5" rotation="0 0 15" color="#677c35"></a-sphere>
+</a-entity>
+<a-entity id="scarecrow" position="0 0 -5.8">
+      <a-cylinder position="0 1.65 0" height="3.3" radius=".09" color="#74502c" shadow="cast: true"></a-cylinder>
+      <a-box position="0 2.3 0" width="2.9" height=".12" depth=".12" color="#74502c"></a-box>
+      <a-box position="0 1.98 .08" width=".78" height=".95" depth=".42" rotation="0 0 -4" color="#bb6339" shadow="cast: true"></a-box>
+      <a-cylinder position="-0.92 2.3 .08" height="1.15" radius=".17" rotation="0 0 -80" color="#bb6339" shadow="cast: true"></a-cylinder>
+      <a-box position="-0.23 1.11 .1" width=".32" height=".88" depth=".36" rotation="0 0 -8" color="#526a77" shadow="cast: true"></a-box>
+      <a-cylinder position="-1.48 2.22 .08" radius=".014" height=".42" rotation="0 0 70" color="#e7c778"></a-cylinder>
+      <a-cylinder position="-0.36 .63 .1" radius=".014" height=".3" rotation="0 0 -16" color="#e7c778"></a-cylinder>
+      <a-cylinder position="-1.4949999999999999 2.2550000000000003 .08" radius=".014" height=".42" rotation="0 0 80" color="#e7c778"></a-cylinder>
+      <a-cylinder position="-0.305 .63 .1" radius=".014" height=".3" rotation="0 0 -8" color="#e7c778"></a-cylinder>
+      <a-cylinder position="-1.51 2.29 .08" radius=".014" height=".42" rotation="0 0 90" color="#e7c778"></a-cylinder>
+      <a-cylinder position="-0.25 .63 .1" radius=".014" height=".3" rotation="0 0 0" color="#e7c778"></a-cylinder>
+      <a-cylinder position="-1.525 2.325 .08" radius=".014" height=".42" rotation="0 0 100" color="#e7c778"></a-cylinder>
+      <a-cylinder position="-0.195 .63 .1" radius=".014" height=".3" rotation="0 0 8" color="#e7c778"></a-cylinder>
+      <a-cylinder position="-1.54 2.3600000000000003 .08" radius=".014" height=".42" rotation="0 0 110" color="#e7c778"></a-cylinder>
+      <a-cylinder position="-0.14 .63 .1" radius=".014" height=".3" rotation="0 0 16" color="#e7c778"></a-cylinder>
+      <a-cylinder position="0.92 2.3 .08" height="1.15" radius=".17" rotation="0 0 80" color="#bb6339" shadow="cast: true"></a-cylinder>
+      <a-box position="0.23 1.11 .1" width=".32" height=".88" depth=".36" rotation="0 0 8" color="#526a77" shadow="cast: true"></a-box>
+      <a-cylinder position="1.48 2.22 .08" radius=".014" height=".42" rotation="0 0 70" color="#e7c778"></a-cylinder>
+      <a-cylinder position="0.14 .63 .1" radius=".014" height=".3" rotation="0 0 -16" color="#e7c778"></a-cylinder>
+      <a-cylinder position="1.4949999999999999 2.2550000000000003 .08" radius=".014" height=".42" rotation="0 0 80" color="#e7c778"></a-cylinder>
+      <a-cylinder position="0.195 .63 .1" radius=".014" height=".3" rotation="0 0 -8" color="#e7c778"></a-cylinder>
+      <a-cylinder position="1.51 2.29 .08" radius=".014" height=".42" rotation="0 0 90" color="#e7c778"></a-cylinder>
+      <a-cylinder position="0.25 .63 .1" radius=".014" height=".3" rotation="0 0 0" color="#e7c778"></a-cylinder>
+      <a-cylinder position="1.525 2.325 .08" radius=".014" height=".42" rotation="0 0 100" color="#e7c778"></a-cylinder>
+      <a-cylinder position="0.305 .63 .1" radius=".014" height=".3" rotation="0 0 8" color="#e7c778"></a-cylinder>
+      <a-cylinder position="1.54 2.3600000000000003 .08" radius=".014" height=".42" rotation="0 0 110" color="#e7c778"></a-cylinder>
+      <a-cylinder position="0.36 .63 .1" radius=".014" height=".3" rotation="0 0 16" color="#e7c778"></a-cylinder>
+      <a-sphere position="0 2.94 .1" radius=".39" scale="1 1.06 .9" color="#e5c58a" shadow="cast: true"></a-sphere>
+      <a-sphere position="-0.13 3.01 .426" radius=".042" color="#352e24"></a-sphere>
+      <a-sphere position="0.13 3.01 .426" radius=".042" color="#352e24"></a-sphere>
+      <a-cone position="0 2.9 .47" radius-bottom=".075" radius-top="0" height=".16" rotation="90 0 0" color="#bd723d"></a-cone>
+      <a-box position="-0.16 2.82 .431" width=".048" height=".018" depth=".016" rotation="0 0 -20.8" color="#513c2c"></a-box>
+      <a-box position="-0.08 2.78 .431" width=".048" height=".018" depth=".016" rotation="0 0 -10.4" color="#513c2c"></a-box>
+      <a-box position="0 2.77 .431" width=".048" height=".018" depth=".016" rotation="0 0 0" color="#513c2c"></a-box>
+      <a-box position="0.08 2.78 .431" width=".048" height=".018" depth=".016" rotation="0 0 10.4" color="#513c2c"></a-box>
+      <a-box position="0.16 2.82 .431" width=".048" height=".018" depth=".016" rotation="0 0 20.8" color="#513c2c"></a-box>
+      <a-cylinder position="0 3.27 .1" radius=".59" height=".065" color="#876132" shadow="cast: true"></a-cylinder>
+      <a-cone position="0 3.53 .1" radius-bottom=".34" radius-top=".10" height=".5" color="#ac8145" shadow="cast: true"></a-cone>
+      <a-cylinder position="0 3.33 .1" radius=".33" height=".10" color="#704431"></a-cylinder>
+      <a-box position="0 2.56 .12" width=".55" height=".14" depth=".49" color="#d8ad45"></a-box>
+      <a-box position=".17 2.34 .34" width=".16" height=".42" depth=".045" rotation="0 0 -15" color="#d8ad45"></a-box>
+      <a-sphere position="0 1.83 .31" radius=".035" color="#e8cf91"></a-sphere>
+      <a-sphere position="0 2.04 .31" radius=".035" color="#e8cf91"></a-sphere>
+      <a-sphere position="0 2.23 .31" radius=".035" color="#e8cf91"></a-sphere>
+      <a-box position="-.24 1.99 .31" width=".19" height=".21" depth=".02" rotation="0 0 12" color="#d7a75c"></a-box>
+</a-entity>
+      <a-box position="-8 .65 -9" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="-6 .65 -9" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="-4 .65 -9" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="-2 .65 -9" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="0 .65 -9" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="2 .65 -9" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="4 .65 -9" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="6 .65 -9" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="8 .65 -9" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="0 0.43 -9" width="16" height=".13" depth=".10" color="#bc9158"></a-box>
+      <a-box position="0 0.94 -9" width="16" height=".13" depth=".10" color="#bc9158"></a-box>
+      <a-box position="-8 .65 -7" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="-8 .65 -5" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="-8 .65 -3" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="-8 .65 -1" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="-8 .65 1" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="-8 .65 3" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="-8 .65 5" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="-8 .65 7" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="-8 0.43 -1" width=".10" height=".13" depth="16" color="#bc9158"></a-box>
+      <a-box position="-8 0.94 -1" width=".10" height=".13" depth="16" color="#bc9158"></a-box>
+      <a-box position="8 .65 -7" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="8 .65 -5" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="8 .65 -3" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="8 .65 -1" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="8 .65 1" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="8 .65 3" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="8 .65 5" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="8 .65 7" width=".15" height="1.3" depth=".15" color="#c29a63" shadow="cast: true"></a-box>
+      <a-box position="8 0.43 -1" width=".10" height=".13" depth="16" color="#bc9158"></a-box>
+      <a-box position="8 0.94 -1" width=".10" height=".13" depth="16" color="#bc9158"></a-box>
+      <a-box position="-2 .38 -7" width="1.2" height=".75" depth=".8" color="#ceaa50" shadow="cast: true"></a-box>
+      <a-box position="-2.36 .39 -7" width=".045" height=".77" depth=".82" color="#a17c36"></a-box>
+      <a-box position="-1.6400000000000001 .39 -7" width=".045" height=".77" depth=".82" color="#a17c36"></a-box>
+      <a-box position="2 .38 -7" width="1.2" height=".75" depth=".8" color="#ceaa50" shadow="cast: true"></a-box>
+      <a-box position="1.6400000000000001 .39 -7" width=".045" height=".77" depth=".82" color="#a17c36"></a-box>
+      <a-box position="2.36 .39 -7" width=".045" height=".77" depth=".82" color="#a17c36"></a-box>
+      <a-box position="3 .38 -7.2" width="1.2" height=".75" depth=".8" color="#ceaa50" shadow="cast: true"></a-box>
+      <a-box position="2.64 .39 -7.2" width=".045" height=".77" depth=".82" color="#a17c36"></a-box>
+      <a-box position="3.36 .39 -7.2" width=".045" height=".77" depth=".82" color="#a17c36"></a-box>
+      <a-cylinder position="-2 0.7 6.3" radius=".065" height="1.4" color="#775231"></a-cylinder>
+      <a-box position="-2 1.35 6.3" width="1.65" height=".65" depth=".12" color="#785333" shadow="cast: true"></a-box>
+      <a-text value="PUMPKIN PATCH" position="-2 1.44 6.37" align="center" width="1.5" color="#fff1cc"></a-text>
+      <a-text value="Welcome, wanderer!" position="-2 1.20 6.37" align="center" width="1.3" color="#eacb8d"></a-text>
+      <a-cylinder position="-11 1.8 -10" radius=".27" height="3.6" color="#755030"></a-cylinder>
+      <a-sphere position="-11.7 3.5 -10" radius="1.5" segments-width="9" segments-height="6" color="#b96328" shadow="cast: true"></a-sphere>
+      <a-sphere position="-10.3 3.65 -10" radius="1.5" segments-width="9" segments-height="6" color="#b96328" shadow="cast: true"></a-sphere>
+      <a-sphere position="-11 4.35 -10" radius="1.5" segments-width="9" segments-height="6" color="#a74b26" shadow="cast: true"></a-sphere>
+      <a-cylinder position="11 1.8 -12" radius=".27" height="3.6" color="#755030"></a-cylinder>
+      <a-sphere position="10.3 3.5 -12" radius="1.5" segments-width="9" segments-height="6" color="#b96328" shadow="cast: true"></a-sphere>
+      <a-sphere position="11.7 3.65 -12" radius="1.5" segments-width="9" segments-height="6" color="#b96328" shadow="cast: true"></a-sphere>
+      <a-sphere position="11 4.35 -12" radius="1.5" segments-width="9" segments-height="6" color="#a74b26" shadow="cast: true"></a-sphere>
+      <a-cylinder position="-13 1.8 1" radius=".27" height="3.6" color="#755030"></a-cylinder>
+      <a-sphere position="-13.7 3.5 1" radius="1.5" segments-width="9" segments-height="6" color="#b96328" shadow="cast: true"></a-sphere>
+      <a-sphere position="-12.3 3.65 1" radius="1.5" segments-width="9" segments-height="6" color="#b96328" shadow="cast: true"></a-sphere>
+      <a-sphere position="-13 4.35 1" radius="1.5" segments-width="9" segments-height="6" color="#a74b26" shadow="cast: true"></a-sphere>
+      <a-cylinder position="13 1.8 -3" radius=".27" height="3.6" color="#755030"></a-cylinder>
+      <a-sphere position="12.3 3.5 -3" radius="1.5" segments-width="9" segments-height="6" color="#b96328" shadow="cast: true"></a-sphere>
+      <a-sphere position="13.7 3.65 -3" radius="1.5" segments-width="9" segments-height="6" color="#b96328" shadow="cast: true"></a-sphere>
+      <a-sphere position="13 4.35 -3" radius="1.5" segments-width="9" segments-height="6" color="#a74b26" shadow="cast: true"></a-sphere>
+<!-- Farmhouse -->
+<a-entity id="farmhouse" position="-4 0 -13">
+<a-box position="0 1.65 0" width="5.5" height="3.3" depth="3.8" color="#efe0bf" shadow="cast: true; receive: true"></a-box>
+<a-entity position="0 3.28 0" geometry="primitive: triangle; vertexA: -2.75 0 0; vertexB: 2.75 0 0; vertexC: 0 1.55 0" material="color: #dcc79f; side: double"></a-entity>
+<a-triangle position="0 3.28 -1.91" vertex-a="-2.75 0 0" vertex-b="2.75 0 0" vertex-c="0 1.55 0" color="#efe0bf" material="side: double"></a-triangle>
+<a-triangle position="0 3.28 1.91" vertex-a="-2.75 0 0" vertex-b="2.75 0 0" vertex-c="0 1.55 0" color="#efe0bf" material="side: double"></a-triangle>
+<a-box position="-1.5 4.0 0" rotation="0 0 29.4" width="3.45" height=".16" depth="4.5" color="#765049" shadow="cast: true"></a-box>
+<a-box position="1.5 4.0 0" rotation="0 0 -29.4" width="3.45" height=".16" depth="4.5" color="#765049" shadow="cast: true"></a-box>
+<a-box position="1.6 4.45 -.65" width=".55" height="1.6" depth=".6" color="#a2674d" shadow="cast: true"></a-box>
+<a-box position="0 1.06 1.93" width=".9" height="2.1" depth=".09" color="#637b68"></a-box>
+<a-sphere position=".29 1.02 2" radius=".055" color="#eac875"></a-sphere>
+<a-box position="-1.75 1.92 1.95" width="1.13" height="1.26" depth=".1" color="#faf0d8"></a-box>
+<a-box position="-1.75 1.92 2.01" width=".92" height="1.05" depth=".025" color="#a5cbd0"></a-box>
+<a-box position="-2.45 1.92 1.97" width=".22" height="1.25" depth=".1" color="#637b68"></a-box>
+<a-box position="-1.05 1.92 1.97" width=".22" height="1.25" depth=".1" color="#637b68"></a-box>
+<a-box position="-1.75 1.92 2.04" width=".05" height="1.08" depth=".025" color="#fff0d4"></a-box>
+<a-box position="-1.75 1.92 2.04" width=".95" height=".05" depth=".025" color="#fff0d4"></a-box>
+<a-box position="1.75 1.92 1.95" width="1.13" height="1.26" depth=".1" color="#faf0d8"></a-box>
+<a-box position="1.75 1.92 2.01" width=".92" height="1.05" depth=".025" color="#a5cbd0"></a-box>
+<a-box position="1.05 1.92 1.97" width=".22" height="1.25" depth=".1" color="#637b68"></a-box>
+<a-box position="2.45 1.92 1.97" width=".22" height="1.25" depth=".1" color="#637b68"></a-box>
+<a-box position="1.75 1.92 2.04" width=".05" height="1.08" depth=".025" color="#fff0d4"></a-box>
+<a-box position="1.75 1.92 2.04" width=".95" height=".05" depth=".025" color="#fff0d4"></a-box>
+<a-box position="0 .12 2.55" width="3.5" height=".24" depth="1.4" color="#ab9471"></a-box>
+</a-entity>
+<!-- Friendly black cat beside the entrance -->
+<a-entity id="patch-cat" position="1.65 0 5.8" rotation="0 -15 0" shadow="cast: true">
+<a-sphere position="0 .39 0" radius=".3" scale="1 1.3 .85" color="#292632"></a-sphere>
+<a-sphere position="-0.15 .09 .18" radius=".12" scale=".85 .7 1.4" color="#292632"></a-sphere>
+<a-sphere position="0.15 .09 .18" radius=".12" scale=".85 .7 1.4" color="#292632"></a-sphere>
+<a-sphere position="0 .8 .1" radius=".25" scale="1 1 .9" color="#302b38"></a-sphere>
+<a-cone position="-0.16 1.04 .08" radius-bottom=".12" radius-top="0" height=".3" scale="1 1 .65" color="#292632"></a-cone>
+<a-triangle position="-0.16 1.045 .155" vertex-a="-.055 -.07 0" vertex-b=".055 -.07 0" vertex-c="0 .09 0" color="#bd8586" material="side: double"></a-triangle>
+<a-cone position="0.16 1.04 .08" radius-bottom=".12" radius-top="0" height=".3" scale="1 1 .65" color="#292632"></a-cone>
+<a-triangle position="0.16 1.045 .155" vertex-a="-.055 -.07 0" vertex-b=".055 -.07 0" vertex-c="0 .09 0" color="#bd8586" material="side: double"></a-triangle>
+<a-sphere position="-0.095 .835 .305" radius=".059" scale="1 .82 .35" color="#d7cf61"></a-sphere>
+<a-sphere position="-0.095 .835 .325" radius=".042" scale=".25 1 .25" color="#17151c"></a-sphere>
+<a-sphere position="0.095 .835 .305" radius=".059" scale="1 .82 .35" color="#d7cf61"></a-sphere>
+<a-sphere position="0.095 .835 .325" radius=".042" scale=".25 1 .25" color="#17151c"></a-sphere>
+<a-sphere position="0 .749 .331" radius=".033" scale="1 .7 .5" color="#c88d91"></a-sphere>
+<a-entity line="start: -0.055 .72 .32; end: -0.33 0.67 .32; color: #d7c8b9"></a-entity>
+<a-entity line="start: -0.055 .72 .32; end: -0.33 0.7200000000000001 .32; color: #d7c8b9"></a-entity>
+<a-entity line="start: -0.055 .72 .32; end: -0.33 0.77 .32; color: #d7c8b9"></a-entity>
+<a-entity line="start: 0.055 .72 .32; end: 0.33 0.67 .32; color: #d7c8b9"></a-entity>
+<a-entity line="start: 0.055 .72 .32; end: 0.33 0.7200000000000001 .32; color: #d7c8b9"></a-entity>
+<a-entity line="start: 0.055 .72 .32; end: 0.33 0.77 .32; color: #d7c8b9"></a-entity>
+<a-cylinder position="0.28 0.225 -0.175" height="0.219928556845359" radius=".055" rotation="0 0 -72.64597536373867" color="#292632"></a-cylinder>
+<a-cylinder position="0.42 0.325 -0.21000000000000002" height="0.23813207915827966" radius=".055" rotation="0 0 -38.65980825409008" color="#292632"></a-cylinder>
+<a-cylinder position="0.505 0.495 -0.22" height="0.24146882704388495" radius=".055" rotation="0 0 -14.743562836470751" color="#292632"></a-cylinder>
+<a-cylinder position="0.525 0.6799999999999999 -0.215" height="0.22555470085267793" radius=".055" rotation="0 0 3.1798301198642362" color="#292632"></a-cylinder>
+<a-cylinder position="0.485 0.825 -0.20500000000000002" height="0.17576696830622018" radius=".055" rotation="0 0 32.4711922908485" color="#292632"></a-cylinder>
+<a-sphere position=".45 .88 -.2" radius=".057" color="#292632"></a-sphere>
+</a-entity>
+    </a-scene>
+  </div>
 
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-<script>
-const source = document.getElementById('source');
-document.getElementById('copy').addEventListener('click', async () => {
-  try {
-    await navigator.clipboard.writeText(source.textContent);
-    document.getElementById('status').textContent = 'Code copied.';
-  } catch (error) {
-    const range = document.createRange();
-    range.selectNodeContents(source);
-    const selection = window.getSelection();
-    selection.removeAllRanges();
-    selection.addRange(range);
-    document.getElementById('status').textContent = 'Code selected. Press Ctrl+C or Command+C to copy.';
-  }
-});
-document.getElementById('download').addEventListener('click', () => {
-  const url = URL.createObjectURL(new Blob([source.textContent], {type: 'text/html;charset=utf-8'}));
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = 'Group 1.html';
-  link.click();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-});
-</script>
 </body>
 </html>
