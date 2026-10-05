@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beach Spaceship</title>
+
+<!-- A-Frame Core -->
+<script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
+
+<style>
+  :root { --light-gray-bg: #f5f5f5; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #fff; color: #222;
+    display: flex; flex-direction: column; min-height: 100vh;
+  }
+  h1 { text-align: center; margin: 16px 8px 4px; font-size: clamp(1.8rem, 4vw, 2.4rem); color: #333; }
+  p {
+    font-family: Georgia, serif; background-color: var(--light-gray-bg); color: #222;
+    max-width: 800px; margin: 16px auto; line-height: 1.6; padding: 12px 20px 24px;
+  }
+  #VR-scene {
+    max-width: 900px; width: 100%; margin: 0 auto 24px;
+    border: 2px solid #444; border-radius: 8px; overflow: hidden;
+    aspect-ratio: 3 / 2; display: flex;
+  }
+  a-scene { width: 100%; height: 100%; }
+  #VR-scene { position: relative; }
+  #fade { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; transition: opacity 0.35s; z-index: 5; }
+  @media (max-width: 600px) { #VR-scene { border-width: 1px; margin-bottom: 16px; } }
+</style>
+
+<script>
+  // Builds a ring of flickering fires around a point
+  AFRAME.registerComponent('fire-ring', {
+    schema: { count: {default: 9}, radius: {default: 4.6}, skip: {default: 0.9} },
+    init: function () {
+      const d = this.data;
+      for (let i = 0; i < d.count; i++) {
+        const a = (i / d.count) * Math.PI * 2;
+        // leave a gap at the front (+z) so the ladder stays reachable
+        if (Math.abs(a - Math.PI / 2) < d.skip * 0.45) continue;
+        const x = Math.cos(a) * d.radius, z = Math.sin(a) * d.radius;
+        const fire = document.createElement('a-entity');
+        fire.setAttribute('position', `${x} 0 ${z}`);
+        fire.innerHTML = `
+          <a-cone color="#ff4d00" radius-bottom="0.55" radius-top="0" height="1.6" position="0 0.8 0"
+                  material="emissive:#ff3300; emissiveIntensity:0.8; opacity:0.9; transparent:true"
+                  animation="property: scale; dir: alternate; dur: ${300 + Math.random() * 300}; loop: true; to: 0.75 1.35 0.75; easing: easeInOutSine"></a-cone>
+          <a-cone color="#ffd21f" radius-bottom="0.3" radius-top="0" height="1.1" position="0 0.55 0"
+                  material="emissive:#ffcc00; emissiveIntensity:1"
+                  animation="property: scale; dir: alternate; dur: ${200 + Math.random() * 250}; loop: true; to: 0.8 1.4 0.8; easing: easeInOutSine"></a-cone>
+          <a-entity light="type: point; color: #ff7a1a; intensity: 1.6; distance: 9" position="0 1.2 0"
+                    animation="property: light.intensity; dir: alternate; dur: ${250 + Math.random() * 300}; loop: true; from: 1; to: 2.4"></a-entity>`;
+        this.el.appendChild(fire);
+      }
+    }
+  });
+
+  // Walk near the ladder -> go inside the ship. Walk to the glowing exit ring -> back to the beach.
+  AFRAME.registerComponent('portal-zones', {
+    init: function () {
+      this.busy = false; this.now = 0; this.cool = 0;
+      this.zones = [
+        { at: [0, -4.6],   r: 0.9, to: [200, 0, 2.2] },  // ladder -> inside
+        { at: [200, 4.0],  r: 0.8, to: [0, 0, -1.5] }    // exit ring -> beach
+      ];
+    },
+    tick: function (t) {
+      this.now = t;
+      if (this.busy || t < this.cool) return;
+      const p = this.el.object3D.position;
+      for (const z of this.zones) {
+        if (Math.hypot(p.x - z.at[0], p.z - z.at[1]) < z.r) {
+          this.busy = true;
+          const fade = document.getElementById('fade');
+          fade.style.opacity = 1;
+          setTimeout(() => {
+            p.set(z.to[0], z.to[1], z.to[2]);
+            fade.style.opacity = 0;
+            this.busy = false;
+            this.cool = this.now + 2500;
+          }, 350);
+          break;
+        }
+      }
+    }
+  });
+
+  // Alternating left/right footprints from one point to another
+  AFRAME.registerComponent('footprints', {
+    schema: { from: {type: 'vec3'}, to: {type: 'vec3'}, step: {default: 0.9},
+              color: {default: '#b79f63'}, size: {default: 1} },
+    init: function () {
+      const d = this.data, dx = d.to.x - d.from.x, dz = d.to.z - d.from.z;
+      const len = Math.hypot(dx, dz), ux = dx / len, uz = dz / len;
+      const yaw = Math.atan2(-ux, -uz) * 180 / Math.PI;
+      const mat = `shader: flat; color: ${d.color}; opacity: 0.85; transparent: true`;
+      for (let i = 0; i < Math.floor(len / d.step); i++) {
+        const side = i % 2 ? 1 : -1, t = i * d.step;
+        const e = document.createElement('a-entity');
+        e.setAttribute('position', `${d.from.x + ux * t - uz * side * 0.22} ${d.from.y + 0.02} ${d.from.z + uz * t + ux * side * 0.22}`);
+        e.setAttribute('rotation', `0 ${yaw} 0`);
+        e.setAttribute('scale', `${d.size} ${d.size} ${d.size}`);
+        e.innerHTML = `
+          <a-circle radius="0.12" scale="0.7 1.5 1" rotation="-90 0 0" material="${mat}"></a-circle>
+          <a-circle radius="0.04" position="-0.07 0 -0.25" rotation="-90 0 0" material="${mat}"></a-circle>
+          <a-circle radius="0.04" position="0 0 -0.29" rotation="-90 0 0" material="${mat}"></a-circle>
+          <a-circle radius="0.04" position="0.07 0 -0.25" rotation="-90 0 0" material="${mat}"></a-circle>`;
+        this.el.appendChild(e);
+      }
+    }
+  });
+
+  // A little green alien
+  AFRAME.registerComponent('alien', {
+    schema: { color: {default: '#7CFC9A'} },
+    init: function () {
+      const c = this.data.color;
+      const eye = 'color: #000; metalness: 0.9; roughness: 0.1';
+      this.el.setAttribute('animation', `property: position.y; from: 0; to: 0.07; dir: alternate; loop: true; dur: ${900 + Math.random() * 800}; easing: easeInOutSine`);
+      this.el.innerHTML = `
+        <a-sphere radius="0.28" scale="1 1.5 0.8" position="0 0.85 0" color="${c}"></a-sphere>
+        <a-cylinder radius="0.05" height="0.45" position="-0.1 0.22 0" color="${c}"></a-cylinder>
+        <a-cylinder radius="0.05" height="0.45" position="0.1 0.22 0" color="${c}"></a-cylinder>
+        <a-cylinder radius="0.03" height="0.6" position="-0.36 0.85 0" rotation="0 0 20" color="${c}"></a-cylinder>
+        <a-cylinder radius="0.03" height="0.6" position="0.36 0.85 0" rotation="0 0 -20" color="${c}"></a-cylinder>
+        <a-sphere radius="0.3" scale="1.1 1.25 1" position="0 1.55 0" color="${c}"></a-sphere>
+        <a-sphere radius="0.09" scale="1 1.9 0.4" position="-0.13 1.57 0.26" rotation="0 0 25" material="${eye}"></a-sphere>
+        <a-sphere radius="0.09" scale="1 1.9 0.4" position="0.13 1.57 0.26" rotation="0 0 -25" material="${eye}"></a-sphere>
+        <a-cylinder radius="0.01" height="0.35" position="-0.1 2.05 0" rotation="0 0 12" color="${c}"></a-cylinder>
+        <a-cylinder radius="0.01" height="0.35" position="0.1 2.05 0" rotation="0 0 -12" color="${c}"></a-cylinder>
+        <a-sphere radius="0.05" position="-0.14 2.24 0" material="shader: flat; color: #ff4fd8"
+                  animation="property: scale; to: 1.6 1.6 1.6; dir: alternate; loop: true; dur: 500"></a-sphere>
+        <a-sphere radius="0.05" position="0.14 2.24 0" material="shader: flat; color: #ff4fd8"
+                  animation="property: scale; to: 1.6 1.6 1.6; dir: alternate; loop: true; dur: 650"></a-sphere>`;
+    }
+  });
+
+  // Speckled sand texture drawn on a canvas
+  AFRAME.registerComponent('sand-texture', {
+    schema: { repeat: {type: 'vec2', default: {x: 24, y: 16}} },
+    init: function () {
+      const c = document.createElement('canvas'); c.width = c.height = 256;
+      const g = c.getContext('2d');
+      g.fillStyle = '#e8d29b'; g.fillRect(0, 0, 256, 256);
+      for (let i = 0; i < 5000; i++) {
+        g.fillStyle = Math.random() < 0.5 ? 'rgba(160,130,70,0.35)' : 'rgba(255,248,220,0.45)';
+        g.fillRect(Math.random() * 256, Math.random() * 256, 1.5, 1.5);
+      }
+      const tex = new THREE.CanvasTexture(c);
+      tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+      tex.repeat.set(this.data.repeat.x, this.data.repeat.y);
+      const apply = () => {
+        const m = this.el.getObject3D('mesh');
+        if (m) { m.material.map = tex; m.material.color.set('#ffffff'); m.material.needsUpdate = true; }
+      };
+      this.el.addEventListener('object3dset', apply);
+      this.el.addEventListener('loaded', apply);
+      apply();
+    }
+  });
+
+  // A palm tree (built with createElement so nothing depends on spacing or ${} placeholders)
+  AFRAME.registerComponent('palm', {
+    schema: { height: {default: 4} },
+    init: function () {
+      const h = this.data.height;
+      const make = (tag, attrs, parent) => {
+        const e = document.createElement(tag);
+        for (const k in attrs) e.setAttribute(k, attrs[k]);
+        parent.appendChild(e);
+        return e;
+      };
+      const lean = make('a-entity', { rotation: '0 0 -8' }, this.el);
+      make('a-cylinder', { 'radius-top': 0.1, 'radius-bottom': 0.2, height: h, position: '0 ' + (h / 2) + ' 0', color: '#8b6b3e' }, lean);
+      const crown = make('a-entity', { position: '0 ' + h + ' 0' }, lean);
+      for (let i = 0; i < 8; i++) {
+        const arm = make('a-entity', { rotation: '0 ' + (i * 45) + ' 0' }, crown);
+        make('a-box', { width: 0.4, height: 0.03, depth: 2, position: '0 -0.1 1', rotation: '20 0 0', color: i % 2 ? '#2f8f3a' : '#3aa546' }, arm);
+      }
+      make('a-sphere', { radius: 0.13, position: '0.12 -0.15 0.1', color: '#5a3a1a' }, crown);
+      make('a-sphere', { radius: 0.13, position: '-0.12 -0.15 -0.05', color: '#5a3a1a' }, crown);
+    }
+  });
+
+  // Click the radio to turn music on / off
+  AFRAME.registerComponent('radio', {
+    init: function () {
+      this.on = false; this.ctx = null; this.timer = null; this.i = 0;
+      this.notes = [0, 4, 7, 9, 7, 4, 2, 4, 0, -3, 0, 4, 7, 4, 2, -1];
+      this.rings = this.el.querySelectorAll('.ring');
+      this.hint = this.el.querySelector('.hint');
+      this.dial = this.el.querySelector('.dial');
+      this.el.addEventListener('click', () => this.toggle());
+    },
+    toggle: function () {
+      this.on = !this.on;
+      if (this.hint) this.hint.setAttribute('visible', false);
+      this.rings.forEach(r => r.setAttribute('visible', this.on));
+      this.dial.setAttribute('material', 'color', this.on ? '#ffd27a' : '#6b4a1a');
+      if (this.on) {
+        this.ctx = this.ctx || new (window.AudioContext || window.webkitAudioContext)();
+        this.ctx.resume();
+        this.timer = setInterval(() => this.note(), 330);
+      } else {
+        clearInterval(this.timer);
+      }
+    },
+    note: function () {
+      const c = this.ctx, o = c.createOscillator(), g = c.createGain(), now = c.currentTime;
+      const n = this.notes[this.i % this.notes.length];
+      o.type = 'triangle';
+      o.frequency.value = 261.63 * Math.pow(2, n / 12) * (this.i % 4 === 0 ? 0.5 : 1);
+      g.gain.setValueAtTime(0.0001, now);
+      g.gain.exponentialRampToValueAtTime(0.15, now + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + 0.3);
+      o.connect(g); g.connect(c.destination);
+      o.start(now); o.stop(now + 0.32);
+      this.i++;
+    }
+  });
+</script>
+</head>
+
+<body>
+
+<h1>Beach Spaceship</h1>
+<p>Bad news: a spaceship crashed on the beach and is on fire. Good news: the aliens inside are very chill, and there's a cool computer in there. Walk up the ladder to meet them.</p>
+
+<div id="VR-scene">
+  <a-scene embedded
+    shadow="type: pcf"
+    renderer="antialias: true; colorManagement: false; exposure: 1.0; toneMapping: None"
+    xr-mode-ui="enabled: true"
+    webxr="optionalFeatures: hand-tracking, layers"
+    cursor="rayOrigin: mouse"
+    inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js">
+
+    <!-- PLAYER -->
+    <a-entity id="rig" position="0 0 6" wasd-controls="acceleration: 25" portal-zones>
+      <a-entity id="head" camera look-controls position="0 1.6 0">
+        <a-cursor raycaster="objects: [data-raycastable]"></a-cursor>
+      </a-entity>
+    </a-entity>
+
+    <!-- SKY, SUN, LIGHTS -->
+    <a-sky color="#8fd3f4"></a-sky>
+    <a-sphere position="-25 30 -60" radius="4" material="color:#fff3a0; shader:flat"></a-sphere>
+    <a-entity light="type: ambient; color: #ffe9cf; intensity: 0.6"></a-entity>
+    <a-entity light="type: directional; color: #fff1d6; intensity: 0.7; castShadow: true" position="-10 20 -10"></a-entity>
+
+    <!-- BEACH -->
+    <!-- sand with a speckled texture -->
+    <a-plane rotation="-90 0 0" position="0 0 -5" width="70" height="40" sand-texture shadow="receive: true"></a-plane>
+    <!-- dunes -->
+    <a-sphere radius="4" scale="3 0.25 1.3" position="-16 0 -3" color="#e3c98d"></a-sphere>
+    <a-sphere radius="4" scale="2.5 0.3 1.2" position="17 0 -9" color="#e3c98d"></a-sphere>
+    <a-sphere radius="4" scale="3 0.22 1.4" position="-19 0 -15" color="#dfc084"></a-sphere>
+    <a-sphere radius="4" scale="2.5 0.25 1.1" position="20 0 3" color="#e6cc92"></a-sphere>
+    <!-- wet sand where the waves reach -->
+    <a-plane rotation="-90 0 0" position="0 0.01 -26" width="70" height="4" color="#b9a06a"></a-plane>
+    <a-plane rotation="-90 0 0" position="0 0.012 -23.5" width="70" height="1.2" color="#cdb681" material="opacity: 0.8; transparent: true"></a-plane>
+    <!-- shallow water and deep ocean -->
+    <a-plane rotation="-90 0 0" position="0 0.025 -31" width="120" height="12" color="#46c6cc" material="opacity: 0.9; transparent: true"></a-plane>
+    <a-plane rotation="-90 0 0" position="0 0.02 -61" width="120" height="48" color="#1e90b0"
+             material="opacity: 0.94; transparent: true"
+             animation="property: position.y; dir: alternate; dur: 2500; loop: true; from: 0.02; to: 0.12; easing: easeInOutSine"></a-plane>
+    <!-- rolling waves that fade out as they reach the shore -->
+    <a-plane rotation="-90 0 0" position="0 0.04 -38" width="70" height="0.5" material="shader: flat; color: #ffffff; transparent: true; opacity: 0.9"
+             animation__move="property: position.z; from: -38; to: -26; dur: 5200; loop: true; delay: 0; easing: easeOutQuad"
+             animation__fade="property: material.opacity; from: 0.9; to: 0; dur: 5200; loop: true; delay: 0; easing: easeInQuad"></a-plane>
+    <a-plane rotation="-90 0 0" position="0 0.04 -38" width="70" height="0.5" material="shader: flat; color: #ffffff; transparent: true; opacity: 0.9"
+             animation__move="property: position.z; from: -38; to: -26; dur: 5200; loop: true; delay: 1300; easing: easeOutQuad"
+             animation__fade="property: material.opacity; from: 0.9; to: 0; dur: 5200; loop: true; delay: 1300; easing: easeInQuad"></a-plane>
+    <a-plane rotation="-90 0 0" position="0 0.04 -38" width="70" height="0.5" material="shader: flat; color: #ffffff; transparent: true; opacity: 0.9"
+             animation__move="property: position.z; from: -38; to: -26; dur: 5200; loop: true; delay: 2600; easing: easeOutQuad"
+             animation__fade="property: material.opacity; from: 0.9; to: 0; dur: 5200; loop: true; delay: 2600; easing: easeInQuad"></a-plane>
+    <a-plane rotation="-90 0 0" position="0 0.04 -38" width="70" height="0.5" material="shader: flat; color: #ffffff; transparent: true; opacity: 0.9"
+             animation__move="property: position.z; from: -38; to: -26; dur: 5200; loop: true; delay: 3900; easing: easeOutQuad"
+             animation__fade="property: material.opacity; from: 0.9; to: 0; dur: 5200; loop: true; delay: 3900; easing: easeInQuad"></a-plane>
+    <!-- foam lapping at the shoreline -->
+    <a-plane rotation="-90 0 0" position="0 0.05 -25" width="70" height="0.8" color="#ffffff"
+             material="opacity: 0.75; transparent: true"
+             animation="property: position.z; dir: alternate; dur: 3000; loop: true; from: -25; to: -23.6; easing: easeInOutSine"></a-plane>
+
+    <!-- palm trees -->
+    <a-entity palm="height: 4.2" position="-8 0 -2"></a-entity>
+    <a-entity palm="height: 3.6" position="9 0 1"></a-entity>
+    <a-entity palm="height: 4.8" position="-12 0 -10" rotation="0 90 0"></a-entity>
+    <a-entity palm="height: 4" position="13 0 -13" rotation="0 200 0"></a-entity>
+
+    <!-- rocks, driftwood and shells -->
+    <a-dodecahedron radius="0.45" scale="1 0.6 1" position="6 0.1 -19" color="#7d8288"></a-dodecahedron>
+    <a-dodecahedron radius="0.3" scale="1 0.6 1" position="6.7 0.06 -18.6" color="#8b9097"></a-dodecahedron>
+    <a-dodecahedron radius="0.55" scale="1 0.6 1" position="-10 0.1 -18" color="#6f747a"></a-dodecahedron>
+    <a-cylinder radius="0.1" height="2.4" position="-6 0.1 -17" rotation="90 25 0" color="#9b7b55"></a-cylinder>
+    <a-cone radius-bottom="0.09" radius-top="0" height="0.16" position="3 0.06 -15" rotation="80 20 0" color="#f6d6c7"></a-cone>
+    <a-cone radius-bottom="0.08" radius-top="0" height="0.14" position="-4 0.06 -20" rotation="80 -40 0" color="#f3c7d1"></a-cone>
+    <a-cone radius-bottom="0.09" radius-top="0" height="0.15" position="8 0.06 -12" rotation="80 70 0" color="#fde2c4"></a-cone>
+    <a-sphere radius="0.09" scale="1 0.4 1" position="-2 0.04 -22" color="#f5e3d3"></a-sphere>
+
+    <!-- beach umbrella -->
+    <a-entity position="-5.5 0 0.5">
+      <a-cylinder radius="0.03" height="2.4" position="0 1.2 0" rotation="0 0 6" color="#ddd"></a-cylinder>
+      <a-cone radius-bottom="1.4" radius-top="0.05" height="0.5" position="0.12 2.35 0" rotation="0 0 6" color="#e8453c"></a-cone>
+      <a-cone radius-bottom="1.41" radius-top="0.05" height="0.5" position="0.12 2.35 0" rotation="0 45 6" color="#ffffff" material="opacity: 0.9; transparent: true" segments-radial="4" theta-length="45"></a-cone>
+      <a-box width="1.6" height="0.03" depth="0.8" position="0.8 0.02 0.8" rotation="0 30 0" color="#2a8fbd"></a-box>
+    </a-entity>
+
+    <!-- RADIO: click it to play music -->
+    <a-entity radio id="radio" position="-2.5 0 2.5" rotation="0 25 0">
+      <a-box class="body" data-raycastable width="0.75" height="0.42" depth="0.26" position="0 0.23 0" color="#c8342f" material="metalness: 0.3; roughness: 0.5"></a-box>
+      <a-torus data-raycastable arc="180" radius="0.2" radius-tubular="0.02" position="0 0.44 0" color="#222"></a-torus>
+      <a-cylinder data-raycastable radius="0.12" height="0.03" position="-0.22 0.22 0.14" rotation="90 0 0" color="#1a1a1a"></a-cylinder>
+      <a-cylinder radius="0.05" height="0.035" position="-0.22 0.22 0.145" rotation="90 0 0" color="#555"></a-cylinder>
+      <a-cylinder data-raycastable radius="0.12" height="0.03" position="0.22 0.22 0.14" rotation="90 0 0" color="#1a1a1a"></a-cylinder>
+      <a-cylinder radius="0.05" height="0.035" position="0.22 0.22 0.145" rotation="90 0 0" color="#555"></a-cylinder>
+      <a-box class="dial" width="0.2" height="0.07" depth="0.01" position="0 0.33 0.135" material="shader: flat; color: #6b4a1a"></a-box>
+      <a-cylinder radius="0.025" height="0.03" position="-0.06 0.2 0.14" rotation="90 0 0" color="#ddd"></a-cylinder>
+      <a-cylinder radius="0.025" height="0.03" position="0.06 0.2 0.14" rotation="90 0 0" color="#ddd"></a-cylinder>
+      <a-cylinder radius="0.008" height="0.7" position="0.3 0.65 -0.08" rotation="0 0 -30" color="#ccc"></a-cylinder>
+      <a-text class="hint" value="Click the radio" align="center" width="2.2" position="0 0.95 0" look-at="[camera]" color="#fff"></a-text>
+      <!-- pulsing sound waves while it plays -->
+      <a-torus class="ring" visible="false" radius="0.2" radius-tubular="0.01" position="0 0.6 0.25" material="shader: flat; color: #ffd27a; transparent: true; opacity: 0.8"
+               animation__s="property: scale; from: 1 1 1; to: 2.6 2.6 2.6; dur: 1500; loop: true"
+               animation__o="property: material.opacity; from: 0.8; to: 0; dur: 1500; loop: true"></a-torus>
+      <a-torus class="ring" visible="false" radius="0.2" radius-tubular="0.01" position="0 0.6 0.25" material="shader: flat; color: #ffd27a; transparent: true; opacity: 0.8"
+               animation__s="property: scale; from: 1 1 1; to: 2.6 2.6 2.6; dur: 1500; loop: true; delay: 500"
+               animation__o="property: material.opacity; from: 0.8; to: 0; dur: 1500; loop: true; delay: 500"></a-torus>
+      <a-torus class="ring" visible="false" radius="0.2" radius-tubular="0.01" position="0 0.6 0.25" material="shader: flat; color: #ffd27a; transparent: true; opacity: 0.8"
+               animation__s="property: scale; from: 1 1 1; to: 2.6 2.6 2.6; dur: 1500; loop: true; delay: 1000"
+               animation__o="property: material.opacity; from: 0.8; to: 0; dur: 1500; loop: true; delay: 1000"></a-torus>
+    </a-entity>
+
+    <!-- SPACESHIP (centered at 0 0 -8) -->
+    <a-entity id="spaceship" position="0 0 -8" rotation="0 0 3">
+      <!-- saucer body -->
+      <a-cylinder radius="3" height="0.7" position="0 1.8" color="#9aa5b1" shadow="cast: true"
+                  material="metalness:0.8; roughness:0.3"></a-cylinder>
+      <a-cone radius-bottom="3" radius-top="1.6" height="0.5" position="0 1.3" color="#6b7682"
+              material="metalness:0.8; roughness:0.3"></a-cone>
+      <!-- rim lights -->
+      <a-torus radius="3" radius-tubular="0.05" position="0 1.8 0" rotation="90 0 0" color="#00e5ff"
+               material="emissive:#00e5ff; emissiveIntensity:1"></a-torus>
+      <!-- dome -->
+      <a-sphere radius="1.6" position="0 2.1 0" scale="1 0.75 1" color="#b8f0ff"
+                material="opacity:0.55; transparent:true; metalness:0.3; roughness:0.1"></a-sphere>
+      <!-- hatch (glowing doorway) -->
+      <a-box width="0.9" height="1.1" depth="0.15" position="0 2.35 1.45" color="#111"
+             material="emissive:#ffd27a; emissiveIntensity:0.6"></a-box>
+      <!-- landing legs -->
+      <a-cylinder radius="0.1" height="1.4" position="2.1 0.7 0" color="#555" rotation="0 0 -12"></a-cylinder>
+      <a-cylinder radius="0.1" height="1.4" position="-1.1 0.7 1.8" color="#555" rotation="10 0 6"></a-cylinder>
+      <a-cylinder radius="0.1" height="1.4" position="-1.1 0.7 -1.8" color="#555" rotation="-10 0 6"></a-cylinder>
+      <a-entity light="type: point; color: #00e5ff; intensity: 0.8; distance: 8" position="0 1 0"></a-entity>
+    </a-entity>
+
+    <!-- LADDER: ground (0,0,-4.4) up to the hatch deck (0,2.3,-6.3) -->
+    <a-entity id="ladder">
+      <a-box width="0.08" height="3" depth="0.08" position="0.35 1.15 -5.35" rotation="-39.6 0 0" color="#8b5a2b"></a-box>
+      <a-box width="0.08" height="3" depth="0.08" position="-0.35 1.15 -5.35" rotation="-39.6 0 0" color="#8b5a2b"></a-box>
+      <a-box width="0.7" height="0.06" depth="0.06" position="0 0.2 -4.78" color="#a0703a"></a-box>
+      <a-box width="0.7" height="0.06" depth="0.06" position="0 0.55 -5.05" color="#a0703a"></a-box>
+      <a-box width="0.7" height="0.06" depth="0.06" position="0 0.9 -5.3" color="#a0703a"></a-box>
+      <a-box width="0.7" height="0.06" depth="0.06" position="0 1.25 -5.55" color="#a0703a"></a-box>
+      <a-box width="0.7" height="0.06" depth="0.06" position="0 1.6 -5.8" color="#a0703a"></a-box>
+      <a-box width="0.7" height="0.06" depth="0.06" position="0 1.95 -6.05" color="#a0703a"></a-box>
+      <a-box width="0.7" height="0.06" depth="0.06" position="0 2.25 -6.3" color="#a0703a"></a-box>
+    </a-entity>
+
+    <!-- FIRE RING around the ship -->
+    <a-entity position="0 0 -8" fire-ring="count: 10; radius: 4.8"></a-entity>
+
+    <!-- Strange footprints on the sand leading to the ladder -->
+    <a-entity footprints="from: 9 0 -23; to: 0.4 0 -5.2; step: 0.9; color: #7a6535; size: 1.4"></a-entity>
+    <!-- a second trail: footprints coming up from the water to the radio -->
+    <a-entity footprints="from: -9 0 -23; to: -2.6 0 1.6; step: 0.85; color: #7a6535; size: 1.4"></a-entity>
+    <!-- and a trail from the radio toward the starting spot -->
+    <a-entity footprints="from: -2 0 3.2; to: 1.5 0 5.4; step: 0.85; color: #7a6535; size: 1.4"></a-entity>
+
+    <!-- ============ SPACESHIP INTERIOR (centered at 200 0 0) ============ -->
+    <a-entity id="interior" position="200 0 0">
+      <!-- walls, floor, ceiling -->
+      <a-cylinder radius="5" height="4" position="0 2 0" open-ended="true" material="side: back; color: #2a3340; metalness: 0.7; roughness: 0.4"></a-cylinder>
+      <a-circle radius="5" rotation="-90 0 0" color="#3b4350" material="metalness: 0.6; roughness: 0.5"></a-circle>
+      <a-circle radius="5" rotation="90 0 0" position="0 4 0" color="#1c222b"></a-circle>
+      <a-torus radius="3.5" radius-tubular="0.06" position="0 3.95 0" rotation="90 0 0" material="shader: flat; color: #00e5ff"></a-torus>
+      <a-torus radius="1.6" radius-tubular="0.06" position="0 3.95 0" rotation="90 0 0" material="shader: flat; color: #b56bff"></a-torus>
+
+      <!-- windows onto space -->
+      <a-plane position="0 2.3 -4.9" width="2.4" height="1.2" material="shader: flat; color: #050818"></a-plane>
+      <a-plane position="-4.3 2.3 -2.4" rotation="0 60 0" width="2" height="1.2" material="shader: flat; color: #050818"></a-plane>
+      <a-plane position="4.3 2.3 -2.4" rotation="0 -60 0" width="2" height="1.2" material="shader: flat; color: #050818"></a-plane>
+      <a-sphere radius="0.03" position="-0.6 2.5 -4.88" material="shader: flat; color: #fff"></a-sphere>
+      <a-sphere radius="0.03" position="0.5 2.1 -4.88" material="shader: flat; color: #fff"></a-sphere>
+      <a-sphere radius="0.05" position="0.9 2.6 -4.88" material="shader: flat; color: #ffd27a"></a-sphere>
+
+      <!-- moody lighting -->
+      <a-entity light="type: ambient; color: #6f7fa8; intensity: 0.5"></a-entity>
+      <a-entity light="type: point; color: #39ff88; intensity: 1.2; distance: 10" position="0 3 -2"></a-entity>
+      <a-entity light="type: point; color: #b56bff; intensity: 1; distance: 8" position="3 2 1"></a-entity>
+
+      <!-- glowing alien footprints across the floor, toward the computer -->
+      <a-entity footprints="from: -3 0 -3; to: 2.2 0 0.4; step: 0.8; color: #39ff88; size: 1.1"></a-entity>
+
+      <!-- aliens -->
+      <a-entity alien position="-2 0 -2.2" rotation="0 25 0"></a-entity>
+      <a-entity alien="color: #9bff6b" position="1.6 0 -2.6" rotation="0 -25 0" scale="0.9 0.9 0.9"></a-entity>
+      <a-entity alien="color: #6bffd8" position="-0.2 0 -3.8" rotation="0 0 0" scale="1.25 1.25 1.25"></a-entity>
+
+      <!-- space helmet on a table -->
+      <a-box width="0.9" height="0.8" depth="0.9" position="-3 0.4 1" color="#444"></a-box>
+      <a-entity position="-3 1.08 1" animation="property: rotation; to: 0 360 0; loop: true; dur: 14000; easing: linear">
+        <a-sphere radius="0.27" color="#f2f2f2" material="metalness: 0.3; roughness: 0.4"></a-sphere>
+        <a-sphere radius="0.2" scale="1 0.8 0.7" position="0 0.03 0.15" material="color: #c9962b; metalness: 1; roughness: 0.1; emissive: #331a00"></a-sphere>
+        <a-torus radius="0.19" radius-tubular="0.04" position="0 -0.2 0" rotation="90 0 0" color="#999"></a-torus>
+      </a-entity>
+
+      <!-- weird computer -->
+      <a-entity position="3.4 0 0.6" rotation="0 -70 0">
+        <a-box width="1.8" height="1" depth="0.8" position="0 0.5 0" color="#2b2f3a" material="metalness: 0.6; roughness: 0.4"></a-box>
+        <a-entity position="0 1.1 -0.05" rotation="-30 0 0">
+          <a-box width="1.8" height="0.08" depth="0.9" color="#3a4050"></a-box>
+          <a-plane width="0.5" height="0.35" position="-0.6 0.05 0.04" rotation="-90 0 0"
+                   material="shader: flat; color: #00ff9d" animation="property: material.color; from: #00ff9d; to: #0a3d2b; dir: alternate; loop: true; dur: 700"></a-plane>
+          <a-plane width="0.5" height="0.35" position="0 0.05 0.04" rotation="-90 0 0"
+                   material="shader: flat; color: #ff40ff" animation="property: material.color; from: #ff40ff; to: #3d0a3d; dir: alternate; loop: true; dur: 1100"></a-plane>
+          <a-plane width="0.5" height="0.35" position="0.6 0.05 0.04" rotation="-90 0 0"
+                   material="shader: flat; color: #40c8ff" animation="property: material.color; from: #40c8ff; to: #0a2a3d; dir: alternate; loop: true; dur: 900"></a-plane>
+          <a-sphere radius="0.04" position="-0.7 0.06 0.3" material="shader: flat; color: #ff3333" animation="property: scale; to: 1.8 1.8 1.8; dir: alternate; loop: true; dur: 400"></a-sphere>
+          <a-sphere radius="0.04" position="-0.5 0.06 0.3" material="shader: flat; color: #ffee33" animation="property: scale; to: 1.8 1.8 1.8; dir: alternate; loop: true; dur: 550"></a-sphere>
+          <a-sphere radius="0.04" position="-0.3 0.06 0.3" material="shader: flat; color: #33ff66" animation="property: scale; to: 1.8 1.8 1.8; dir: alternate; loop: true; dur: 700"></a-sphere>
+        </a-entity>
+        <!-- floating hologram -->
+        <a-torus-knot radius="0.22" radius-tubular="0.04" position="0 2.1 0" material="shader: flat; color: #ff66ff; wireframe: true"
+                      animation="property: rotation; to: 360 360 0; loop: true; dur: 6000; easing: linear"></a-torus-knot>
+        <a-octahedron radius="0.1" position="0.5 1.9 0" material="shader: flat; color: #66ffea"
+                      animation="property: position.y; from: 1.8; to: 2.3; dir: alternate; loop: true; dur: 1800; easing: easeInOutSine"></a-octahedron>
+        <!-- creepy cables -->
+        <a-torus radius="0.3" radius-tubular="0.03" position="-0.95 0.3 0.2" rotation="0 90 0" color="#7a1fa2"></a-torus>
+        <a-torus radius="0.22" radius-tubular="0.03" position="-0.95 0.15 -0.15" rotation="0 90 0" color="#1fa25a"></a-torus>
+      </a-entity>
+
+      <!-- exit ring (walk into it to go back outside) -->
+      <a-ring radius-inner="0.45" radius-outer="0.6" rotation="-90 0 0" position="0 0.03 4"
+              material="shader: flat; color: #ffd27a"
+              animation="property: scale; to: 1.25 1.25 1.25; dir: alternate; loop: true; dur: 900"></a-ring>
+    </a-entity>
+
+  </a-scene>
+  <div id="fade"></div>
+</div>
+
+</body>
+</html>
