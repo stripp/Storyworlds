@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!-- GuyRodriguezRosenberg -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark Room — WebXR</title>
+  <script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
+  <script>
+    // Disable electric bulb emission; illumination comes
+    // only from the candle entities.
+    AFRAME.registerComponent('room-finish', {
+      init: function () {
+        this.el.addEventListener('model-loaded', () => {
+          const model = this.el.getObject3D('mesh');
+          if (!model) return;
+          model.traverse((node) => {
+            if (!node.isMesh) return;
+            node.castShadow = true;
+            node.receiveShadow = true;
+            const materials = Array.isArray(node.material) ? node.material : [node.material];
+            materials.forEach((material) => {
+              if (material.name === 'luz' && material.emissive) {
+                material.emissive.set('#000000');
+                material.emissiveIntensity = 0;
+                material.needsUpdate = true;
+              }
+            });
+          });
+        });
+      }
+    });
+  </script>
+  <script src="javascript/game.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 0 12px; font-family: system-ui, sans-serif; background: #fff; color: #222; }
+    h1 { text-align: center; margin: 16px 8px 4px; font-size: clamp(1.8rem, 4vw, 2.4rem); }
+    p { max-width: 800px; margin: 16px auto; padding: 12px 20px; background: #f5f5f5; line-height: 1.6; }
+    #VR-scene { max-width: 900px; width: 100%; margin: 0 auto 24px; border: 2px solid #444; border-radius: 8px; overflow: hidden; aspect-ratio: 3 / 2; position: relative; }
+    a-scene { width: 100%; height: 100%; }
+    @media (max-width: 600px) { #VR-scene { border-width: 1px; aspect-ratio: 1; } }
+  </style>
+</head>
+<body>
+  <h1>Dark Room — WebXR</h1>
+  <p>You wake in a decaying hallway. Find the skull key and unlock the marked door to escape. Desktop: drag to look, WASD to walk, click the key from any distance, then use the nearby lock (or press E). VR: left stick to walk; point and trigger or grip to pick up the key, then bring it to the lock. Contains a sudden scare and sound.</p><p id="message" role="status" aria-live="polite">Loading the hallway...</p><p><button id="restart" hidden>Play again</button></p>
+  <div id="VR-scene">
+    <a-scene embedded escape-game cursor="rayOrigin: mouse" raycaster="objects: .interactable"
+      background="color: #08090d"
+      renderer="antialias: true; colorManagement: true; toneMapping: ACESFilmic; exposure: 0.75"
+      shadow="type: pcfsoft"
+      xr-mode-ui="enabled: true">
+
+      <a-assets timeout="60000">
+	<a-asset-item id="figure" src="https://sof-webxr-assets.s3.us-east-2.amazonaws.com/meshes/figure.glb" crossorigin="anonymous"></a-asset-item> 
+        <a-asset-item id="room" src="https://sof-webxr-assets.s3.us-east-2.amazonaws.com/meshes/building.glb" crossorigin="anonymous"></a-asset-item> 
+      </a-assets>
+
+      <!-- The floor is approximately y=0.274 in the exported model.
+           Shift the room down so standing height starts at floor level. -->
+      <a-entity gltf-model="#room" id="room-model" room-finish
+        position="0 -0.274 0" rotation="0 0 0" scale="1 1 1">
+      </a-entity>
+
+      <!-- Start near the front of the room, looking toward negative Z. -->
+      <a-entity id="rig" position="0.45 0 1.8">
+        <a-entity id="left-hand" laser-controls="hand: left" raycaster="objects: .interactable; far: 1000"></a-entity>
+        <a-entity id="right-hand" laser-controls="hand: right" raycaster="objects: .interactable; far: 1000"></a-entity>
+        <a-entity id="head" camera="fov: 85; near: 0.05; far: 50" position="0 1.6 0"
+          look-controls="pointerLockEnabled: false"
+          wasd-controls="acceleration: 8; fly: false">
+          <a-entity id="desktop-hand" position="0.24 -0.26 -0.42" rotation="-12 -12 0">
+            <a-box width="0.09" height="0.08" depth="0.16" color="#6e5848"></a-box>
+            <a-box position="0 -0.045 0.15" width="0.095" height="0.11" depth="0.2" color="#24252a"></a-box>
+          </a-entity>
+          <a-entity id="hud" position="0 -0.42 -1.05" text="value: Find the key.; align: center; width: 1.1; color: #fff1ce; wrapCount: 48"></a-entity>
+        </a-entity>
+      </a-entity>
+
+      <a-entity id="key" position="-0.34 0.52 -0.24" rotation="-90 0 25">
+        <a-sphere id="key-hitbox" class="interactable" radius="0.19" material="transparent: true; opacity: 0; depthWrite: false"></a-sphere>
+        <a-sphere position="0 0.01 0" scale="1 1.15 0.55" radius="0.052" color="#b1a18a" material="roughness: 0.95"></a-sphere>
+        <a-box position="0 -0.035 0" width="0.055" height="0.033" depth="0.036" color="#968672"></a-box>
+        <a-sphere position="-0.021 0.017 0.024" radius="0.014" scale="1 1.15 0.4" color="#170c0c"></a-sphere>
+        <a-sphere position="0.021 0.017 0.024" radius="0.014" scale="1 1.15 0.4" color="#170c0c"></a-sphere>
+        <a-sphere position="-0.021 0.017 0.03" radius="0.005" material="shader: flat; color: #870e17"></a-sphere>
+        <a-sphere position="0.021 0.017 0.03" radius="0.005" material="shader: flat; color: #870e17"></a-sphere>
+        <a-cone position="0 -0.01 0.029" radius-bottom="0.009" radius-top="0" height="0.016" rotation="0 0 180" color="#201511"></a-cone>
+        <a-box position="0 -0.037 0.02" width="0.04" height="0.006" depth="0.006" color="#231b16"></a-box>
+        <a-cylinder position="0 -0.102 0" radius="0.009" height="0.12" color="#382821" material="metalness: 0.55; roughness: 0.85"></a-cylinder>
+        <a-torus position="0 -0.077 0" radius="0.014" radius-tubular="0.004" rotation="90 0 0" color="#66432b"></a-torus>
+        <a-box position="0.02 -0.15 0" width="0.05" height="0.016" depth="0.014" color="#483024"></a-box>
+        <a-cone position="0.039 -0.139 0" radius-bottom="0.009" radius-top="0" height="0.03" color="#66513a"></a-cone>
+        <a-box position="0.013 -0.122 0" width="0.034" height="0.012" depth="0.014" color="#483024"></a-box>
+      </a-entity>
+      <a-text id="key-label" value="CLICK TO PICK UP" position="-0.34 0.78 -0.24" align="center" width="0.7" color="#ffdb83"></a-text>
+      <!-- Lock on the nearer door on the right wall. -->
+      <a-entity id="lock" position="1.48 1.05 -0.8">
+        <a-box id="lock-hitbox" class="interactable" width="0.06" height="0.2" depth="0.13" color="#ae863f" material="metalness: 0.6; roughness: 0.5"></a-box>
+        <a-sphere position="-0.035 0 0" radius="0.018" color="#111111"></a-sphere>
+        <a-text value="EXIT\nUSE KEY" position="-0.045 0.3 0" rotation="0 -90 0" align="center" width="0.8" color="#d7c5a2"></a-text>
+      </a-entity>
+      <!-- The removed character returns only for the scripted scare. -->
+      <a-entity id="figure" visible="false">
+        <a-entity gltf-model="#figure" id="model-figure" scale="0.65 0.65 0.65" position="-0.29 -0.165 0.48"></a-entity>
+      </a-entity>
+      <a-entity id="candle-glow" position="0.25 0.65 -3.8" light="type: point; color: #ff9e40; intensity: 0.9; distance: 4; decay: 2"></a-entity>
+      <a-entity id="candles"></a-entity>
+      <!-- Second hallway, aligned with the unlocked door and extending along X. -->
+      <a-entity id="second-hallway">
+        <a-box position="5.8 -0.08 -0.4" width="8.5" height="0.16" depth="1.28" material="src: url(texture/planks_brown_10_diff_1k.png); repeat: 4 1; color: #726456; roughness: 0.95"></a-box>
+        <a-box position="5.8 1.3 -1.08" width="8.5" height="2.6" depth="0.12" material="src: url(texture/PeelingWallpaper.png); repeat: 3 1; color: #756657; roughness: 1"></a-box>
+        <a-box position="5.8 1.3 0.28" width="8.5" height="2.6" depth="0.12" material="src: url(texture/PeelingWallpaper.png); repeat: 3 1; color: #756657; roughness: 1"></a-box>
+        <a-box position="5.8 2.65 -0.4" width="8.5" height="0.1" depth="1.5" color="#24201d"></a-box>
+        <a-box position="10 1.3 -0.4" width="0.12" height="2.6" depth="1.5" color="#191514"></a-box>
+      </a-entity>
+      <!-- Candle lights are the only scene illumination. -->
+    </a-scene>
+  </div>
+</body>
+</html>
