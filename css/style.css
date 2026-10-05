@@ -1,0 +1,88 @@
+/* --- COLOR PALETTE (refined) --- */
+:root {
+  /* Greens */
+  --palm-green: #2E5A2C;
+  --grass-green: #4F8A3C;
+  --lime-highlight: #A6C96B;
+
+  /* Cyans & Blues */
+  --sky-cyan: #7ECFEA;
+  --horizon-blue: #5BA9D1;
+  --shadow-blue: #3F6E8C;
+
+  /* Brick & Earth */
+  --brick-red: #A05239;
+  --burnt-clay: #7A3E2A;
+
+  /* Neutrals (updated) */
+  --very-dark-gray: #1E1E1E;   /* for headings */
+  --mid-gray: #444444;         /* optional accents */
+  --light-gray-bg: #F2F2F2;    /* new background */
+  --concrete: #D7D7D7;
+}
+
+/* --- BASE LAYOUT --- */
+body {
+  font-family: Georgia, serif;
+  background-color: var(--light-gray-bg); /* lighter, cleaner */
+  color: #222;
+  max-width: 800px;
+  margin: 40px auto;
+  line-height: 1.6;
+  padding: 0 20px;
+}
+
+/* --- HERO IMAGE --- */
+.hero {
+  width: 100%;
+  max-width: 800px;
+  display: block;
+  margin: 0 auto 20px auto;
+  border-radius: 4px;
+}
+
+/* --- HEADINGS (updated per your request) --- */
+h1, h2 {
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  color: var(--very-dark-gray); /* new darker tone */
+}
+
+h1 {
+  margin-top: 10px;
+  font-size: 2.2rem;
+}
+
+h2 {
+  margin-top: 6px;
+  font-size: 1.3rem;
+  font-weight: normal;
+}
+
+/* --- NAVIGATION --- */
+nav {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--concrete);
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav li {
+  margin: 10px 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--brick-red);
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: var(--sky-cyan);
+}
